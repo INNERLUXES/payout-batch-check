@@ -1,0 +1,51 @@
+{
+  "name": "payout-batch-check",
+  "version": "1.0.0",
+  "description": "Payout batch check: reads a cross-border payout batch before it is sent, as a CSV table with a header row or as JSON (for each payment its id, the beneficiary name and country, the rail; the IBAN or account number, BIC, currency and amount of a bank payment; the network, token, wallet address and amount of a stablecoin payment; an optional purpose code, FX rate and source currency; and the id, debit currency and totals of the batch), contacts no bank, chain or API, fetches nothing and runs nothing, and lists with file and line the problems that make payouts fail, come back or reach the wrong account: IBANs that fail ISO 13616 mod-97 or have the wrong length for their country in the Swift IBAN registry, BICs not in the form of ISO 9362, currencies not in ISO 4217 and amounts with more decimals than their minor unit, country codes that are not ISO 3166-1, payment ids written twice and possible double payments, missing beneficiary names, totals that are not the sum of the rows, wallet addresses in the wrong form for their network, tokens that are not allowed and converted payments with no FX rate. Text, markdown, JSON and SARIF output, exit codes for a pipeline, no dependencies.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "payout-batch-check": "bin/payout-batch-check.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "docs",
+    "examples",
+    "research",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "test:coverage": "node --test --experimental-test-coverage \"test/*.test.js\"",
+    "check": "node tools/check.mjs",
+    "example": "node tools/example.mjs"
+  },
+  "keywords": [
+    "cross-border-payments",
+    "payouts",
+    "iban",
+    "swift",
+    "bic",
+    "iso-4217",
+    "stablecoin",
+    "csv",
+    "static-analysis",
+    "sarif",
+    "cli"
+  ],
+  "author": "INNERLUXES <info@innerluxes.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INNERLUXES/payout-batch-check.git"
+  },
+  "homepage": "https://innerluxes.dev/blockchain/cross-border-payments"
+}
