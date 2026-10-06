@@ -1,0 +1,148 @@
+Source: https://developers.tron.network/docs/account
+Read as the markdown that developers.tron.network serves for the page at https://developers.tron.network/docs/account.md and kept as it was read, less the lines that research/sources.md names; the page itself is the authority.
+
+# Accounts and keys
+
+Address formats, key pairs, and the account activation process on TRON.
+
+A TRON account is identified by an address and controlled by a private key. Each account holds balances of TRX and other tokens, can spend [Bandwidth and Energy](https://developers.tron.network/docs/resource-model) to perform on-chain operations, and can vote for [Super Representatives](https://developers.tron.network/docs/super-representatives) using its [TRON Power](https://developers.tron.network/docs/resource-model). Accounts are the basis of all activity on TRON.
+
+> **Prerequisites**
+>
+> * [Tokenomics](https://developers.tron.network/docs/tron-economic-model)
+
+***
+
+## Account types
+
+TRON has two account types:
+
+| Type                           | Controlled by     | Can hold balances | Can execute code |
+| ------------------------------ | ----------------- | ----------------- | ---------------- |
+| Externally-owned account (EOA) | A private key     | Yes               | No               |
+| Contract account               | Deployed bytecode | Yes               | Yes              |
+
+Both types receive, hold, and send TRX and tokens. Only contract accounts run smart contract logic when called. No one holds the private key for a contract account; it is controlled entirely by its code and access rules.
+
+***
+
+## Address format
+
+A TRON address is a 21-byte value with a leading `0x41` prefix byte. Addresses appear in two formats:
+
+**Hex** - 42 hex characters including the `41` prefix:
+
+```text
+418840E6C5...AECED808
+```
+
+The remaining 20 bytes after the `41` prefix are identical to the Ethereum address derived from the same public key. To convert a TRON hex address to its Ethereum form, drop the leading `41`.
+
+**Base58Check** - 34 characters starting with `T`:
+
+```text
+TNPeeaaF...8G1NYqeL
+```
+
+Base58Check is the form shown in wallets and explorers. To convert between formats with TronWeb:
+
+```javascript
+tronWeb.address.toHex("TNPeeaaF...8G1NYqeL")
+> "418840E6C5...AECED808"
+
+tronWeb.address.fromHex("418840E6C5...AECED808")
+> "TNPeeaaF...8G1NYqeL"
+```
+
+***
+
+## Key pairs
+
+TRON uses ECDSA over the secp256k1 curve - the same elliptic curve as Bitcoin and Ethereum. Each account is backed by a key pair: a 32-byte private key (256 bits) and the corresponding public key derived through ECDSA. The signature on a transaction proves that it originated from the account holder; without that signature, anyone could forge transfers from any address.
+
+Address generation produces a 21-byte address from a key pair in three steps:
+
+1. Generate a random 32-byte private key.
+2. Derive the public key from the private key using ECDSA.
+3. Take the last 20 bytes of `Keccak-256(public_key)` and prepend the byte `0x41` to produce the 21-byte TRON address.
+
+***
+
+## Creating an account
+
+You can create an account in three ways. All three boil down to generating a key pair locally:
+
+| Method       | Use case                       | Tool                                                     |
+| ------------ | ------------------------------ | -------------------------------------------------------- |
+| Command line | Local CLI generation           | [wallet-cli](https://github.com/tronprotocol/wallet-cli) |
+| SDK          | Programmatic creation in code  | [TronWeb](https://developers.tron.network/docs/tronweb-1) `tronWeb.createAccount()`       |
+| Wallet app   | End-user creation through a UI | [TronLink](https://developers.tron.network/docs/tronlink-integration) browser extension   |
+
+**Using wallet-cli:**
+
+```text
+wallet> GenerateAddress
+{
+    "address": "TU6JdEDQ...4FQrXPCa",
+    "privateKey": "b1ba1db5...74376176"
+}
+```
+
+**Using TronWeb:**
+
+```javascript
+const account = await tronWeb.createAccount();
+console.log(account.address.base58);   // "TDpBe64D...hw2wDacE"
+console.log(account.address.hex);      // "412A2B9F...8106524B"
+console.log(account.privateKey);       // 64-char hex
+console.log(account.publicKey);        // 130-char hex
+```
+
+***
+
+## Activating an account
+
+An account exists locally as soon as you generate its key pair, but the network only recognizes it after activation. Until activation, the address cannot be looked up via API or block explorer queries.
+
+There are two activation paths:
+
+**Standard activation** - Send any amount of TRX or a TRC-10 token from an existing account to the new address, or call `wallet/createaccount` from an existing account. The sending account pays an account creation fee of 1 TRX (`getCreateNewAccountFeeInSystemContract`). If the sender does not hold enough Bandwidth, an additional 0.1 TRX (`getCreateAccountFee`) is burned to cover the Bandwidth shortfall.
+
+**Contract activation** - When a smart contract transfers TRX or a TRC-10 token to an unactivated address, the transfer activates the recipient automatically. The calling transaction incurs an extra 25,000 Energy on top of normal execution costs.
+
+***
+
+## Contract accounts
+
+When a smart contract is deployed, the network returns a contract account address derived from the deployment transaction's ID and the deployer's address. Contract addresses use the same hex and Base58Check formats as EOA addresses:
+
+```text
+Base58Check: TR7NHqje...zgjLj6t
+Hex:         41A614F8...E6DED13C
+```
+
+A contract account can hold TRX and tokens. Its contract state changes through bytecode execution, but its balance can also change through a system transfer that does not enter the TVM. On TRON Mainnet, an external account can currently use `TransferContract` to send TRX directly to a contract address. This path only increases the contract's TRX balance; it does not execute `receive()` or `fallback()`.
+
+***
+
+## Account query API selection
+
+| Query goal                        | Recommended API                                                                                                      | Notes                                                                                                        |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Activate a new address            | [`wallet/createaccount`](https://developers.tron.network/reference/account-createaccount)                                                                  | Usually only needed when activation must be explicit; ordinary TRX transfers can also activate recipients.   |
+| Query latest account state        | [`wallet/getaccount`](https://developers.tron.network/reference/account-getaccount)                                                                        | Reads the latest head state from FullNode. Use it for low-latency display and debugging.                     |
+| Query solidified account state    | [`walletsolidity/getaccount`](https://developers.tron.network/reference/walletsolidity-getaccount)                                                         | Reads solidified state from SolidityNode. Use it for confirmation and reconciliation.                        |
+| Query account resources           | [`wallet/getaccountresource`](https://developers.tron.network/reference/getaccountresource)                                                                | Queries Bandwidth, Energy, TRON Power, and related resource usage.                                           |
+| Query current TRC-20 balance      | [`wallet/triggerconstantcontract`](https://developers.tron.network/reference/triggerconstantcontract) with `balanceOf(address)`, or a TronGrid balance API | TRC-20 balances are not stored directly in the account object; query the Token contract or an index service. |
+| Query account transaction history | TronGrid V1 API or a self-hosted indexer                                                                             | Node account APIs return current state and do not provide complete historical account flows.                 |
+
+***
+
+## Related resources
+
+* [Transactions](https://developers.tron.network/docs/tron-protocol-transaction) - how accounts initiate on-chain operations
+* [API task map](https://developers.tron.network/docs/api-task-map) - choose account, balance, and resource APIs by task
+* [Confirmation semantics](https://developers.tron.network/docs/confirmation-semantics) - choose FullNode or SolidityNode based on finality requirements
+* [Resource Model: Bandwidth & Energy](https://developers.tron.network/docs/resource-model) - The resources accounts consume
+* [Getting testnet tokens](https://developers.tron.network/docs/getting-testnet-tokens-on-tron) - Activate your first testnet account
+* [Account Permission Management](https://developers.tron.network/docs/multi-signature) - Multi-party account control

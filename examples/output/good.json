@@ -1,0 +1,269 @@
+{
+  "tool": "payout-batch-check",
+  "version": "1.0.0",
+  "input": {
+    "file": "examples/good/batch.csv",
+    "format": "csv",
+    "bytes": 1744,
+    "lines": 12
+  },
+  "batch": {
+    "id": "PAYOUT-EXAMPLE-GOOD",
+    "format": "csv",
+    "debitCurrency": "EUR",
+    "payments": 11,
+    "bank": 8,
+    "stablecoin": 3,
+    "units": [
+      "EUR",
+      "GBP",
+      "CHF",
+      "JPY",
+      "KWD",
+      "USD",
+      "USDC",
+      "USDT"
+    ]
+  },
+  "totals": {
+    "findings": 0,
+    "byLevel": {
+      "error": 0,
+      "warning": 0,
+      "info": 0
+    },
+    "hidden": 0
+  },
+  "rules": [
+    {
+      "id": "batch-unreadable",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "field-missing",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "field-unknown",
+      "level": "warning",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "field-invalid",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "field-duplicate",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "secret-in-batch",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "iban-checksum",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "iban-length",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "iban-country-mismatch",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "bic-format",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "bic-country-mismatch",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "currency-unknown",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "amount-decimals",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "amount-invalid",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "amount-above-max",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "country-invalid",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "payment-id-duplicate",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "payment-possible-duplicate",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "beneficiary-name-missing",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "beneficiary-name-short",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "batch-total-mismatch",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "wallet-address-malformed",
+      "level": "error",
+      "kind": "documented",
+      "findings": 0
+    },
+    {
+      "id": "token-not-allowed",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "network-token-unknown",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "fx-rate-missing",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    }
+  ],
+  "config": {
+    "minSeverity": "info",
+    "failOn": "error",
+    "tokens": [
+      "USDC",
+      "USDT"
+    ],
+    "maxAmount": {
+      "all": null,
+      "byUnit": {}
+    }
+  },
+  "findings": [],
+  "table": [
+    {
+      "unit": "EUR",
+      "payments": 3,
+      "sum": "2960",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "GBP",
+      "payments": 1,
+      "sum": "1200",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "CHF",
+      "payments": 1,
+      "sum": "950",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "JPY",
+      "payments": 1,
+      "sum": "150000",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "KWD",
+      "payments": 1,
+      "sum": "250.125",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "USD",
+      "payments": 1,
+      "sum": "2500",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "USDC",
+      "payments": 2,
+      "sum": "1250",
+      "total": null,
+      "state": "no total given"
+    },
+    {
+      "unit": "USDT",
+      "payments": 1,
+      "sum": "400",
+      "total": null,
+      "state": "no total given"
+    }
+  ],
+  "notes": [
+    "the batch gives no totals, so batch-total-mismatch had nothing to compare"
+  ],
+  "notice": "This report is an input to a review before the batch is sent: not a compliance or sanctions screening and not a guarantee that a payment will arrive.",
+  "result": {
+    "pass": true,
+    "failOn": "error",
+    "text": "PASS - no finding at or above error"
+  }
+}

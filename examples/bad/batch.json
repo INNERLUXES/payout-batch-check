@@ -1,0 +1,240 @@
+{
+  "notes": "A made-up batch for the examples of payout-batch-check. Every name is made up, every IBAN is an example of the IBAN registry of Swift or one changed from it, every BIC is made up with EXMP as its party prefix, every wallet address is one character written many times, and no key or seed is real.",
+  "batch": {
+    "id": "PAYOUT-EXAMPLE-BAD",
+    "debitCurrency": "EUR",
+    "totals": {
+      "EUR": "6082.00",
+      "GBP": "1200.00",
+      "CHF": "950.00",
+      "EUX": "410.00",
+      "JPY": "150000.50",
+      "SEK": "200.00",
+      "USDC": "1250.00",
+      "DAI": "300.00",
+      "USDT": "400.00"
+    }
+  },
+  "payments": [
+    {
+      "paymentId": "P-001",
+      "beneficiaryName": "Harbor Example Supplies GmbH",
+      "beneficiaryCountry": "DE",
+      "rail": "bank",
+      "iban": "DE89370400440532013000",
+      "bic": "EXMPDEFFXXX",
+      "currency": "EUR",
+      "amount": "1500.00",
+      "purposeCode": "SUPP"
+    },
+    {
+      "paymentId": "P-002",
+      "beneficiaryName": "Lantern Example Studio IKE",
+      "beneficiaryCountry": "GR",
+      "rail": "bank",
+      "iban": "GR16 0110 1250 0000 0001 2300 696",
+      "bic": "EXMPGRAA",
+      "currency": "EUR",
+      "amount": "820.00"
+    },
+    {
+      "paymentId": "P-003",
+      "beneficiaryName": "Meadow Example Design BV",
+      "beneficiaryCountry": "NL",
+      "rail": "bank",
+      "iban": "NL58ABNA041716430",
+      "bic": "EXMPNL2A",
+      "currency": "EUR",
+      "amount": "640.00"
+    },
+    {
+      "paymentId": "P-004",
+      "beneficiaryName": "Summit Example Consulting",
+      "beneficiaryCountry": "AT",
+      "rail": "bank",
+      "iban": "BE68539007547034",
+      "currency": "EUR",
+      "amount": "310.00"
+    },
+    {
+      "paymentId": "P-005",
+      "beneficiaryName": "Willow Example Trading Ltd",
+      "beneficiaryCountry": "GB",
+      "rail": "bank",
+      "iban": "GB29NWBK60161331926819",
+      "bic": "EXMP GB2L",
+      "currency": "GBP",
+      "amount": "1200.00",
+      "fxRate": "0.8571"
+    },
+    {
+      "paymentId": "P-006",
+      "beneficiaryName": "Granite Example Works AG",
+      "beneficiaryCountry": "CH",
+      "rail": "bank",
+      "iban": "CH9300762011623852957",
+      "bic": "EXMPDEFF",
+      "currency": "CHF",
+      "amount": "950.00",
+      "fxRate": "0.9364"
+    },
+    {
+      "paymentId": "P-007",
+      "beneficiaryName": "Orchard Example Foods SL",
+      "beneficiaryCountry": "ES",
+      "rail": "bank",
+      "iban": "ES9121000418450200051332",
+      "bic": "EXMPESMM",
+      "currency": "EUX",
+      "amount": "410.00"
+    },
+    {
+      "paymentId": "P-008",
+      "beneficiaryName": "Example Kogyo KK",
+      "beneficiaryCountry": "JP",
+      "rail": "bank",
+      "accountNumber": "1234567",
+      "bic": "EXMPJPJT",
+      "currency": "JPY",
+      "amount": "150000.50",
+      "fxRate": "162.40"
+    },
+    {
+      "paymentId": "P-009",
+      "beneficiaryName": "Birch Example Konsult AB",
+      "beneficiaryCountry": "SE",
+      "rail": "bank",
+      "iban": "SE4550000000058398257466",
+      "bic": "EXMPSESS",
+      "currency": "SEK",
+      "amount": "-200.00",
+      "fxRate": "11.3150"
+    },
+    {
+      "paymentId": "P-010",
+      "beneficiaryName": "Fern Example Partners LLP",
+      "beneficiaryCountry": "UK",
+      "rail": "bank",
+      "iban": "IE29AIBK93115212345678",
+      "bic": "EXMPIE2D",
+      "currency": "EUR",
+      "amount": "275.00"
+    },
+    {
+      "paymentId": "P-001",
+      "beneficiaryName": "Delta Example Lda",
+      "beneficiaryCountry": "PT",
+      "rail": "bank",
+      "iban": "PT50000201231234567890154",
+      "bic": "EXMPPTPL",
+      "currency": "EUR",
+      "amount": "530.00"
+    },
+    {
+      "paymentId": "P-012",
+      "beneficiaryName": "Harbor Example Supplies GmbH",
+      "beneficiaryCountry": "DE",
+      "rail": "bank",
+      "iban": "DE89 3704 0044 0532 0130 00",
+      "bic": "EXMPDEFFXXX",
+      "currency": "EUR",
+      "amount": "1500.00"
+    },
+    {
+      "paymentId": "P-013",
+      "beneficiaryCountry": "BE",
+      "rail": "bank",
+      "iban": "BE68539007547034",
+      "currency": "EUR",
+      "amount": "199.00"
+    },
+    {
+      "paymentId": "P-014",
+      "beneficiaryName": "Q",
+      "beneficiaryCountry": "LU",
+      "rail": "bank",
+      "iban": "LU280019400644750000",
+      "currency": "EUR",
+      "amount": "88.00"
+    },
+    {
+      "paymentId": "P-015",
+      "beneficiaryName": "Prairie Example Labs Inc",
+      "beneficiaryCountry": "US",
+      "rail": "bank",
+      "accountNumber": "000123456789",
+      "bic": "EXMPUS33",
+      "currency": "USD",
+      "amount": "2500.00"
+    },
+    {
+      "paymentId": "P-016",
+      "beneficiaryName": "Lumen Example Pte Ltd",
+      "beneficiaryCountry": "SG",
+      "rail": "stablecoin",
+      "network": "ethereum",
+      "token": "USDC",
+      "walletAddress": "0x1234",
+      "amount": "750.00"
+    },
+    {
+      "paymentId": "P-017",
+      "beneficiaryName": "Dune Example Trading FZE",
+      "beneficiaryCountry": "AE",
+      "rail": "stablecoin",
+      "network": "ethereum",
+      "token": "DAI",
+      "walletAddress": "0x3333333333333333333333333333333333333333",
+      "amount": "300.00"
+    },
+    {
+      "paymentId": "P-018",
+      "beneficiaryName": "Coral Example Ltd",
+      "beneficiaryCountry": "KE",
+      "rail": "stablecoin",
+      "network": "base",
+      "token": "USDT",
+      "walletAddress": "0x4444444444444444444444444444444444444444",
+      "amount": "400.00"
+    },
+    {
+      "paymentId": "P-019",
+      "beneficiaryName": "Ridge Example Ltda",
+      "beneficiaryCountry": "BR",
+      "rail": "stablecoin",
+      "network": "solana",
+      "token": "USDC",
+      "walletAddress": "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+      "amount": "500.00",
+      "seedPhrase": "lantern lantern lantern lantern lantern lantern lantern lantern lantern lantern lantern lantern"
+    },
+    {
+      "paymentId": "P-020",
+      "beneficiaryName": "Meadow Example Design BV",
+      "beneficiaryCountry": "NL",
+      "rail": "bank",
+      "iban": "NL91ABNA0417164300",
+      "bic": "EXMPNL2A",
+      "currency": "EUR",
+      "amount": "120.00",
+      "purposeCod": "SUPP"
+    },
+    {
+      "paymentId": "P-021",
+      "beneficiaryName": "Harbor Example Supplies GmbH",
+      "beneficiaryCountry": "DE",
+      "rail": "wire",
+      "iban": "DE89370400440532013000",
+      "currency": "EUR",
+      "amount": "60.00"
+    },
+    {
+      "paymentId": "P-022",
+      "beneficiaryName": "Nordic Example Data ApS",
+      "beneficiaryCountry": "DK",
+      "rail": "bank",
+      "iban": "DK5000400440116243",
+      "amount": "45.00"
+    }
+  ]
+}

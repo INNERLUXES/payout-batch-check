@@ -1,0 +1,31 @@
+Source: https://www.swift.com/standards/data-standards/iban-international-bank-account-number
+Read as the text of the article of the page in a browser and kept as it was read, less the lines that research/sources.md names; the page itself is the authority.
+
+International Bank Account Number (IBAN)
+
+An IBAN number is an international standard for identifying account numbers.
+
+What is an IBAN number?
+
+IBAN stands for International Bank Account Number. The IBAN facilitates the automation of cross-border payment transaction processing. Each country has its particular national IBAN format. The ISO 13616 standard specifies the structure of an ISO-compliant national IBAN format. A copy of the ISO 13616 standard can be obtained through www.iso.org.
+
+ISO has designated Swift to act as the registration authority for national IBAN formats. Only a national standards body or a national central bank can request a national IBAN format registration for its country.
+
+The IBAN Registration Procedures document describes the roles and responsibilities of the different stakeholders intervening in the registration, publication and maintenance of the IBAN formats.
+
+IBAN Registration procedures
+Download
+
+After consulting the registration procedures, to request the registration of a national IBAN format or to update an existing one, download the IBAN Registration Form, complete it, and send it by email to the address mentioned in the form.
+
+IBAN Registration Form
+Download
+
+IBAN Registry
+
+Swift publishes the ISO 13616 IBAN Registry. This registry contains the technical specification of the national IBAN formats of those countries that are compliant with the ISO 13616 standard. The IBAN Registry is updated upon request from the ISO national standards bodies or the national central banks. Download the IBAN Registry (in PDF format) free of charge. The Registry is also available in .txt format.
+
+IBAN Registry (PDF)
+Download
+IBAN Registry (TXT)
+Download

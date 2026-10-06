@@ -1,0 +1,29 @@
+payout-batch-check checks
+
+  batch-unreadable            error    input          the file is not JSON or CSV the readers can follow, or its top level is not an object, so no payment was read
+  field-missing               error    input          a field the checks need is not in the batch: the payments, a payment id, a beneficiary country, a rail, an amount, the currency and account of a bank payment, or the network, token and wallet of a stablecoin payment
+  field-unknown               warning  input          a key or column the tool does not read, often a misspelt one; its value was left out of every check
+  field-invalid               error    input          a value of the wrong type or form: an object where text belongs, a rail the tool does not know, a field the rail of the payment does not take, a rate that is not a decimal above 0, or a batch field that differs from row to row
+  field-duplicate             error    input          a column is named twice in the header of a CSV file, so two readers of the file could take different values; the second column was left out
+  secret-in-batch             error    input          the batch holds a private key, a seed or a mnemonic, under a key or column named for one or as a value shaped like one; the tool never reads it and never shows it
+  iban-checksum               error    documented     an IBAN that fails the MOD 97-10 check of ISO 13616, or is not in the form of an IBAN at all (two letters, two check digits, up to 30 letters and digits)
+  iban-length                 error    documented     an IBAN whose length is not the one the IBAN registry of Swift gives its country; the IBAN of a country out of the saved registry is checked for its check digits only
+  iban-country-mismatch       warning  best practice  the country of the IBAN is not the beneficiary country, and not a territory the registry lists under that IBAN prefix
+  bic-format                  error    documented     a BIC that is not 8 or 11 characters of the form of ISO 9362 (four letters or digits, two letters of a country, two letters or digits, an optional branch code of three), or whose country letters are not a country code
+  bic-country-mismatch        warning  best practice  the country letters of the BIC are not the beneficiary country, or a territory the IBAN registry lists under that country
+  currency-unknown            error    documented     a currency, a source currency or a debit currency that is not an alphabetic code of the ISO 4217 list SIX keeps, written in capitals
+  amount-decimals             error    documented     an amount of a bank payment with more decimal places than the minor unit ISO 4217 gives its currency, such as JPY with any fraction or EUR with three places
+  amount-invalid              error    best practice  an amount that is 0, negative or not a plain decimal number (a sign, an exponent, a currency sign or a thousands separator)
+  amount-above-max            warning  best practice  an amount above the limit --max-amount sets for every payment or for its currency or token; the check runs only when the option is given
+  country-invalid             error    documented     a beneficiary country that is not a two-letter code of ISO 3166-1 as the UN M49 table lists them, written in capitals, such as UK for GB
+  payment-id-duplicate        error    best practice  two payments share a payment id (compared without case and outer spaces), so the second is refused or, where the id is not checked, paid as well
+  payment-possible-duplicate  warning  best practice  two payments go to the same account (IBAN, account number and BIC, or wallet on a network) for the same amount in the same currency or token
+  beneficiary-name-missing    error    best practice  a payment with no beneficiary name, which cannot be screened against sanctions lists or matched to the account holder
+  beneficiary-name-short      warning  best practice  a beneficiary name with fewer than three letters or digits, too short to screen or to match
+  batch-total-mismatch        error    best practice  the total the batch gives for a currency or token is not the sum of its payments in that unit, or a unit with payments has no total
+  wallet-address-malformed    error    documented     a wallet address not in the form of its network: 0x and 40 hex digits (not the zero address) on an EVM network, 32 to 44 base58 characters on Solana, T and 33 base58 characters on Tron
+  token-not-allowed           error    best practice  a stablecoin payment in a token that is not in the list of tokens the batch may pay in (USDC and USDT unless --tokens sets another)
+  network-token-unknown       warning  best practice  a stablecoin payment on a network out of the tool's table, or in a token the table does not list on that network
+  fx-rate-missing             warning  best practice  a bank payment in a currency other than its source currency, or the debit currency of the batch, with no FX rate
+
+A documented check rests on a page or list of Swift, the Central Bank of the Republic of Turkiye, SIX, the UN Statistics Division, ethereum.org, Solana or TRON; a best practice check is this tool's own choice and says so in its message. An input check is about the batch file itself.

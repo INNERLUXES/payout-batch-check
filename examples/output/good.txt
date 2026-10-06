@@ -1,0 +1,55 @@
+payout-batch-check: examples/good/batch.csv
+file: 12 lines, 1,744 bytes
+batch: PAYOUT-EXAMPLE-GOOD; CSV; 11 payments (8 bank, 3 stablecoin); debit EUR; paid in EUR, GBP, CHF, JPY, KWD, USD, USDC and USDT
+findings: 0
+
+Checks (25)
+
+  check                       level    kind           findings
+  batch-unreadable            error    input          0
+  field-missing               error    input          0
+  field-unknown               warning  input          0
+  field-invalid               error    input          0
+  field-duplicate             error    input          0
+  secret-in-batch             error    input          0
+  iban-checksum               error    documented     0
+  iban-length                 error    documented     0
+  iban-country-mismatch       warning  best practice  0
+  bic-format                  error    documented     0
+  bic-country-mismatch        warning  best practice  0
+  currency-unknown            error    documented     0
+  amount-decimals             error    documented     0
+  amount-invalid              error    best practice  0
+  amount-above-max            warning  best practice  0
+  country-invalid             error    documented     0
+  payment-id-duplicate        error    best practice  0
+  payment-possible-duplicate  warning  best practice  0
+  beneficiary-name-missing    error    best practice  0
+  beneficiary-name-short      warning  best practice  0
+  batch-total-mismatch        error    best practice  0
+  wallet-address-malformed    error    documented     0
+  token-not-allowed           error    best practice  0
+  network-token-unknown       warning  best practice  0
+  fx-rate-missing             warning  best practice  0
+
+Findings (0)
+
+  none
+
+Totals (8)
+
+  unit  payments  sum of rows  total given  state
+  EUR   3         2960         -            no total given
+  GBP   1         1200         -            no total given
+  CHF   1         950          -            no total given
+  JPY   1         150000       -            no total given
+  KWD   1         250.125      -            no total given
+  USD   1         2500         -            no total given
+  USDC  2         1250         -            no total given
+  USDT  1         400          -            no total given
+
+note: the batch gives no totals, so batch-total-mismatch had nothing to compare
+
+This report is an input to a review before the batch is sent: not a compliance or sanctions screening and not a guarantee that a payment will arrive.
+
+RESULT: PASS - no finding at or above error

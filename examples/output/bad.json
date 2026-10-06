@@ -1,0 +1,682 @@
+{
+  "tool": "payout-batch-check",
+  "version": "1.0.0",
+  "input": {
+    "file": "examples/bad/batch.json",
+    "format": "json",
+    "bytes": 6625,
+    "lines": 240
+  },
+  "batch": {
+    "id": "PAYOUT-EXAMPLE-BAD",
+    "format": "json",
+    "debitCurrency": "EUR",
+    "payments": 22,
+    "bank": 17,
+    "stablecoin": 4,
+    "units": [
+      "EUR",
+      "GBP",
+      "CHF",
+      "EUX",
+      "JPY",
+      "SEK",
+      "USDC",
+      "DAI",
+      "USDT",
+      "USD"
+    ]
+  },
+  "totals": {
+    "findings": 23,
+    "byLevel": {
+      "error": 16,
+      "warning": 7,
+      "info": 0
+    },
+    "hidden": 0
+  },
+  "rules": [
+    {
+      "id": "batch-unreadable",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "field-missing",
+      "level": "error",
+      "kind": "input",
+      "findings": 1
+    },
+    {
+      "id": "field-unknown",
+      "level": "warning",
+      "kind": "input",
+      "findings": 1
+    },
+    {
+      "id": "field-invalid",
+      "level": "error",
+      "kind": "input",
+      "findings": 1
+    },
+    {
+      "id": "field-duplicate",
+      "level": "error",
+      "kind": "input",
+      "findings": 0
+    },
+    {
+      "id": "secret-in-batch",
+      "level": "error",
+      "kind": "input",
+      "findings": 1
+    },
+    {
+      "id": "iban-checksum",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "iban-length",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "iban-country-mismatch",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "bic-format",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "bic-country-mismatch",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "currency-unknown",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "amount-decimals",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "amount-invalid",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "amount-above-max",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 0
+    },
+    {
+      "id": "country-invalid",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "payment-id-duplicate",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "payment-possible-duplicate",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "beneficiary-name-missing",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "beneficiary-name-short",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "batch-total-mismatch",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 2
+    },
+    {
+      "id": "wallet-address-malformed",
+      "level": "error",
+      "kind": "documented",
+      "findings": 1
+    },
+    {
+      "id": "token-not-allowed",
+      "level": "error",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "network-token-unknown",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    },
+    {
+      "id": "fx-rate-missing",
+      "level": "warning",
+      "kind": "best practice",
+      "findings": 1
+    }
+  ],
+  "config": {
+    "minSeverity": "info",
+    "failOn": "error",
+    "tokens": [
+      "USDC",
+      "USDT"
+    ],
+    "maxAmount": {
+      "all": null,
+      "byUnit": {}
+    }
+  },
+  "findings": [
+    {
+      "id": "batch-total-mismatch",
+      "severity": "error",
+      "message": "The batch has a payment of 2500 USD, but its totals give none for USD, so a bank that checks the totals of the batch refuses it. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 6,
+      "column": 5,
+      "at": "examples/bad/batch.json:6",
+      "payment": null,
+      "fix": "Work out the totals again from the rows, and find the row that was added or lost before the batch is sent.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "comparing the totals of a batch with its rows is a best practice of this tool, not a rule in the pages it cites; a control total is how many banks and providers catch a changed file, and no cited page sets the rule"
+    },
+    {
+      "id": "batch-total-mismatch",
+      "severity": "error",
+      "message": "The batch gives a total of 6082 EUR, but its 10 payments in EUR add up to 5982. A batch whose control total is off is refused by the bank, or a row was added or lost on the way. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 7,
+      "column": 7,
+      "at": "examples/bad/batch.json:7",
+      "payment": null,
+      "fix": "Work out the totals again from the rows, and find the row that was added or lost before the batch is sent.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "comparing the totals of a batch with its rows is a best practice of this tool, not a rule in the pages it cites; a control total is how many banks and providers catch a changed file, and no cited page sets the rule"
+    },
+    {
+      "id": "iban-checksum",
+      "severity": "error",
+      "message": "The iban of payment P-002, GR1601101250000000012300696, fails the check of ISO 13616: the remainder of MOD 97-10 is 28, not 1, so a character is wrong or two are swapped. A bank may return or reject the payment.",
+      "file": "examples/bad/batch.json",
+      "line": 35,
+      "column": 7,
+      "at": "examples/bad/batch.json:35",
+      "payment": "P-002",
+      "fix": "Copy the IBAN again from the beneficiary, in electronic form or in groups of four; never correct the check digits by hand to make it pass.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "To check the two check digits, the communique moves the first four characters to the end, turns every letter into a number from 10 for A to 35 for Z, and asks that the result divided by 97 leave 1, the MOD 97-10 of ISO 7064.",
+          "source": "Central Bank of the Republic of Turkiye: Communique on the International Bank Account Number",
+          "url": "https://tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Bottom+Menu/IBAN/Communique"
+        },
+        {
+          "text": "The communique lets a bank return or reject a transfer order whose IBAN fails that check.",
+          "source": "Central Bank of the Republic of Turkiye: Communique on the International Bank Account Number",
+          "url": "https://tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Bottom+Menu/IBAN/Communique"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "iban-length",
+      "severity": "error",
+      "message": "The iban of payment P-003 has 17 characters, but the IBAN registry of Swift gives NL IBANs 18.",
+      "file": "examples/bad/batch.json",
+      "line": 45,
+      "column": 7,
+      "at": "examples/bad/batch.json:45",
+      "payment": "P-003",
+      "fix": "Copy the IBAN again from the beneficiary; an IBAN of the right country always has the length of the registry.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "ISO named Swift the registration authority for the national formats of the IBAN, and the registry Swift publishes holds the format of each country whose IBAN follows ISO 13616.",
+          "source": "Swift: International Bank Account Number (IBAN)",
+          "url": "https://www.swift.com/standards/data-standards/iban-international-bank-account-number"
+        },
+        {
+          "text": "For every country it covers, the registry gives the two letters an IBAN starts with, its structure, its length in electronic form and an example; an IBAN of Norway has 15 characters and one of Saint Lucia 32.",
+          "source": "Swift: IBAN Registry (TXT)",
+          "url": "https://www.swift.com/swift-resource/11971/download"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "bic-format",
+      "severity": "error",
+      "message": "The bic of payment P-005, \"EXMP GB2L\", has 9 characters, not 8 or 11. A BIC of ISO 9362 is four letters or digits, two letters of a country, two letters or digits, and an optional branch code of three.",
+      "file": "examples/bad/batch.json",
+      "line": 65,
+      "column": 7,
+      "at": "examples/bad/batch.json:65",
+      "payment": "P-005",
+      "fix": "Copy the BIC again from the bank of the beneficiary, in capitals and with no spaces.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "ISO 9362 defines the BIC as eight characters, four letters or digits for the party, two letters for a country code of ISO 3166-1 and two letters or digits after them, with a branch code of three more characters that may be added.",
+          "source": "Swift: Business Identifier Code (BIC)",
+          "url": "https://www.swift.com/standards/data-standards/bic-business-identifier-code"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "currency-unknown",
+      "severity": "error",
+      "message": "The currency of payment P-007 is \"EUX\", which is not an alphabetic code of the ISO 4217 list SIX keeps. A bank refuses a payment in a currency it does not know.",
+      "file": "examples/bad/batch.json",
+      "line": 88,
+      "column": 7,
+      "at": "examples/bad/batch.json:88",
+      "payment": "P-007",
+      "fix": "Write the three capital letters of the currency as list one of ISO 4217 gives them, such as EUR, USD or JPY.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "List one of ISO 4217, kept by SIX as the maintenance agency, names for each country or entity its currency with an alphabetic code of three letters, a numeric code and a minor unit.",
+          "source": "SIX: ISO 4217 list one, current currency and funds code list",
+          "url": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "amount-decimals",
+      "severity": "error",
+      "message": "The amount of payment P-008 is 150000.50 JPY, with 1 decimal place, but the ISO 4217 list gives JPY a minor unit of 0: it has no fractions. A bank refuses the amount or rounds it.",
+      "file": "examples/bad/batch.json",
+      "line": 99,
+      "column": 7,
+      "at": "examples/bad/batch.json:99",
+      "payment": "P-008",
+      "fix": "Round the amount to the minor unit of the currency before the batch is sent, and make sure the rounding is the one the beneficiary is owed.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "The minor unit of the list is the number of decimal places a currency is counted in: 0 for the Japanese yen, 2 for the euro, 3 for the Kuwaiti dinar, and N.A. for codes such as gold that have no fraction.",
+          "source": "SIX: ISO 4217 list one, current currency and funds code list",
+          "url": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "amount-invalid",
+      "severity": "error",
+      "message": "The amount of payment P-009 is negative (-200.00); a payout pays out, and a reversal or a fee belongs in a file of its own. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 110,
+      "column": 7,
+      "at": "examples/bad/batch.json:110",
+      "payment": "P-009",
+      "fix": "Write the amount as a plain decimal number above 0, such as 1500.00, and move reversals and fees to a file of their own.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "refusing an amount of 0, a negative amount and an amount in another notation is a best practice of this tool, not a rule in the pages it cites; none of the cited pages sets a rule on how a batch writes an amount"
+    },
+    {
+      "id": "country-invalid",
+      "severity": "error",
+      "message": "The beneficiaryCountry of payment P-010 is \"UK\", which is not a two-letter code of the country table the tool reads (the ISO alpha-2 codes of the UN M49 table). The code of the United Kingdom is GB.",
+      "file": "examples/bad/batch.json",
+      "line": 116,
+      "column": 7,
+      "at": "examples/bad/batch.json:116",
+      "payment": "P-010",
+      "fix": "Write the two capital letters of the country, such as GB for the United Kingdom.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "The M49 table of the UN Statistics Division gives each country or area it lists a number of three digits and its ISO codes of two and of three letters.",
+          "source": "United Nations Statistics Division: Standard country or area codes for statistical use (M49)",
+          "url": "https://unstats.un.org/unsd/methodology/m49/overview/"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "payment-id-duplicate",
+      "severity": "error",
+      "message": "The paymentId P-001 is also the id of the payment at line 19; a bank or a payout provider refuses the second, or pays both when it takes the id for a new instruction. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 124,
+      "column": 7,
+      "at": "examples/bad/batch.json:124",
+      "payment": "P-001",
+      "fix": "Give every payment an id of its own and keep it the same when the batch is sent again, so that a provider can refuse a payment it has already made.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "asking for an id of its own for each payment is a best practice of this tool, not a rule in the pages it cites; providers use the id to find a payment and to refuse one sent twice, and no cited page sets the rule"
+    },
+    {
+      "id": "beneficiary-name-missing",
+      "severity": "error",
+      "message": "Payment P-013 has no beneficiaryName, so the payment cannot be screened against sanctions lists and the bank of the beneficiary cannot match it to the account holder. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 143,
+      "column": 5,
+      "at": "examples/bad/batch.json:143",
+      "payment": "P-013",
+      "fix": "Give the full name of the beneficiary as the bank or the wallet provider knows it.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "asking for a name on every payment is a best practice of this tool, not a rule in the pages it cites; the name is what sanctions screening and the bank of the beneficiary read, and the cited pages are about codes and accounts"
+    },
+    {
+      "id": "wallet-address-malformed",
+      "severity": "error",
+      "message": "The walletAddress of payment P-016 on Ethereum, \"0x1234\", has 4 characters after 0x, not 40; an address on Ethereum is 0x followed by 40 hex digits, not the zero address. A payment to it fails, or goes to an address no one holds.",
+      "file": "examples/bad/batch.json",
+      "line": 177,
+      "column": 7,
+      "at": "examples/bad/batch.json:177",
+      "payment": "P-016",
+      "fix": "Copy the wallet address again from the beneficiary, and confirm it with a small test payment before a large one.",
+      "kind": "documented",
+      "basis": [
+        {
+          "text": "An Ethereum address is made from the last 20 bytes of a Keccak-256 hash of the public key with 0x in front, 42 characters with 40 hex digits, and a contract account has an address of the same form.",
+          "source": "ethereum.org: Ethereum accounts",
+          "url": "https://ethereum.org/en/developers/docs/accounts/"
+        },
+        {
+          "text": "Every Solana account has an address of 32 bytes, either an Ed25519 public key or one derived from a program, and it is written as a base58 string.",
+          "source": "Solana: Account Structure",
+          "url": "https://solana.com/docs/core/accounts/account-structure"
+        },
+        {
+          "text": "A TRON address is 21 bytes that begin with the byte 0x41, and wallets and explorers show it in Base58Check as 34 characters starting with T.",
+          "source": "TRON Developer Hub: Accounts and keys",
+          "url": "https://developers.tron.network/docs/account"
+        }
+      ],
+      "own": null
+    },
+    {
+      "id": "token-not-allowed",
+      "severity": "error",
+      "message": "Payment P-017 pays in DAI, which is not in the list of tokens the batch may pay in (USDC and USDT; --tokens sets another). This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 186,
+      "column": 7,
+      "at": "examples/bad/batch.json:186",
+      "payment": "P-017",
+      "fix": "Pay in a token of the list, or give the tokens your team pays in with --tokens.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "a list of tokens a batch may pay in is a best practice of this tool, not a rule in the pages it cites; the default list is the tool's own and --tokens sets yours"
+    },
+    {
+      "id": "secret-in-batch",
+      "severity": "error",
+      "message": "The batch holds the key \"seedPhrase\", which names a seed, a mnemonic or a private key. The tool never reads one, and the value is not shown.",
+      "file": "examples/bad/batch.json",
+      "line": 209,
+      "column": 7,
+      "at": "examples/bad/batch.json:209",
+      "payment": null,
+      "fix": "Remove the value from the file and from wherever the file was copied, treat it as exposed and move the funds it controls. A payout batch names wallets by their public address only.",
+      "kind": "input",
+      "basis": [],
+      "own": null
+    },
+    {
+      "id": "field-invalid",
+      "severity": "error",
+      "message": "The rail of payment P-021 is \"wire\"; it must be bank or stablecoin.",
+      "file": "examples/bad/batch.json",
+      "line": 226,
+      "column": 7,
+      "at": "examples/bad/batch.json:226",
+      "payment": "P-021",
+      "fix": "Write the value as docs/inputs.md shows: text for names, codes, accounts and addresses, decimal numbers for amounts and rates.",
+      "kind": "input",
+      "basis": [],
+      "own": null
+    },
+    {
+      "id": "field-missing",
+      "severity": "error",
+      "message": "Payment P-022 is a bank payment with no currency.",
+      "file": "examples/bad/batch.json",
+      "line": 231,
+      "column": 5,
+      "at": "examples/bad/batch.json:231",
+      "payment": "P-022",
+      "fix": "Add the field named; docs/inputs.md lists what each payment needs.",
+      "kind": "input",
+      "basis": [],
+      "own": null
+    },
+    {
+      "id": "iban-country-mismatch",
+      "severity": "warning",
+      "message": "The iban of payment P-004 is an account in BE, but the beneficiaryCountry is AT. Either can be right, as a beneficiary may bank abroad, but a wrong country is also how a payment reaches the wrong account. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 55,
+      "column": 7,
+      "at": "examples/bad/batch.json:55",
+      "payment": "P-004",
+      "fix": "Check the beneficiary country and the IBAN with the beneficiary; when the account is abroad on purpose, keep the warning and say so in the review.",
+      "kind": "best practice",
+      "basis": [
+        {
+          "text": "Some prefixes of the registry stand for other territories as well: Aland banks under FI, the Isle of Man, Jersey and Guernsey under GB, and the French overseas departments and territories under FR.",
+          "source": "Swift: IBAN Registry (TXT)",
+          "url": "https://www.swift.com/swift-resource/11971/download"
+        }
+      ],
+      "own": "comparing the country of the IBAN with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; a beneficiary may hold an account abroad, and the registry only says which territories a prefix covers"
+    },
+    {
+      "id": "bic-country-mismatch",
+      "severity": "warning",
+      "message": "The bic of payment P-006, EXMPDEFF, is of a bank in DE, but the beneficiaryCountry is CH and the iban is in CH. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 76,
+      "column": 7,
+      "at": "examples/bad/batch.json:76",
+      "payment": "P-006",
+      "fix": "Check the BIC with the beneficiary; when the bank is abroad on purpose, keep the warning and say so in the review.",
+      "kind": "best practice",
+      "basis": [
+        {
+          "text": "ISO 9362 defines the BIC as eight characters, four letters or digits for the party, two letters for a country code of ISO 3166-1 and two letters or digits after them, with a branch code of three more characters that may be added.",
+          "source": "Swift: Business Identifier Code (BIC)",
+          "url": "https://www.swift.com/standards/data-standards/bic-business-identifier-code"
+        }
+      ],
+      "own": "comparing the country of the BIC with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; the BIC page gives the place of the country code, not a rule that the bank and the beneficiary share a country"
+    },
+    {
+      "id": "payment-possible-duplicate",
+      "severity": "warning",
+      "message": "Payment P-012 pays 1500 EUR to the same account as payment P-001 at line 19, for the same amount. It may be one payment written twice. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 141,
+      "column": 7,
+      "at": "examples/bad/batch.json:141",
+      "payment": "P-012",
+      "fix": "Check that the two payments are meant; remove one when the same payment was written twice.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "looking for two payments of one amount to one account is a best practice of this tool, not a rule in the pages it cites; two such payments can be right, such as two invoices of the same amount"
+    },
+    {
+      "id": "beneficiary-name-short",
+      "severity": "warning",
+      "message": "The beneficiaryName of payment P-014 is \"Q\", with fewer than 3 letters, too short to screen against sanctions lists or to match to the account holder. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 153,
+      "column": 7,
+      "at": "examples/bad/batch.json:153",
+      "payment": "P-014",
+      "fix": "Write the full name of the beneficiary, not initials or a placeholder.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "the least length of a name is a best practice of this tool, not a rule in the pages it cites; three letters is the tool's own floor, and a real name can be that short"
+    },
+    {
+      "id": "fx-rate-missing",
+      "severity": "warning",
+      "message": "Payment P-015 is paid in USD from EUR, the debitCurrency of the batch, and gives no fxRate, so the amount debited is not known until the bank converts it. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 167,
+      "column": 7,
+      "at": "examples/bad/batch.json:167",
+      "payment": "P-015",
+      "fix": "Give the rate the batch was priced at in fxRate, so that the amount debited is known before the batch is sent.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "asking for the rate of a converted payment is a best practice of this tool, not a rule in the pages it cites; a bank can convert at its own rate, and the batch then debits an amount no one checked"
+    },
+    {
+      "id": "network-token-unknown",
+      "severity": "warning",
+      "message": "Payment P-018 pays in USDT on Base, a pair the tool's table does not list, so the token may be a bridged copy or not exist on the network. Check the token contract of the issuer by hand. This is a best practice of this tool, not a rule in the pages it cites.",
+      "file": "examples/bad/batch.json",
+      "line": 196,
+      "column": 7,
+      "at": "examples/bad/batch.json:196",
+      "payment": "P-018",
+      "fix": "Check by hand that the issuer of the token lists a contract on the network, and how a wallet address on it is written.",
+      "kind": "best practice",
+      "basis": [],
+      "own": "the table of networks and of the tokens on each is a best practice of this tool, not a rule in the pages it cites; no cited page gives one, and a pair out of it is a question, not an error"
+    },
+    {
+      "id": "field-unknown",
+      "severity": "warning",
+      "message": "The key \"purposeCod\" of payment P-020 is not one the tool reads, so its value was left out of every check. Did you mean \"purposeCode\"? The keys of payment P-020 are paymentId, beneficiaryName, beneficiaryCountry, rail, iban, accountNumber, bic, currency, amount, network, token, walletAddress, purposeCode, fxRate, sourceCurrency, notes.",
+      "file": "examples/bad/batch.json",
+      "line": 220,
+      "column": 7,
+      "at": "examples/bad/batch.json:220",
+      "payment": null,
+      "fix": "Correct the spelling to a field of docs/inputs.md, or remove it.",
+      "kind": "input",
+      "basis": [],
+      "own": null
+    }
+  ],
+  "table": [
+    {
+      "unit": "EUR",
+      "payments": 10,
+      "sum": "5982",
+      "total": "6082",
+      "state": "differs"
+    },
+    {
+      "unit": "GBP",
+      "payments": 1,
+      "sum": "1200",
+      "total": "1200",
+      "state": "matches"
+    },
+    {
+      "unit": "CHF",
+      "payments": 1,
+      "sum": "950",
+      "total": "950",
+      "state": "matches"
+    },
+    {
+      "unit": "EUX",
+      "payments": 1,
+      "sum": "410",
+      "total": "410",
+      "state": "matches"
+    },
+    {
+      "unit": "JPY",
+      "payments": 1,
+      "sum": "150000.5",
+      "total": "150000.5",
+      "state": "matches"
+    },
+    {
+      "unit": "SEK",
+      "payments": 1,
+      "sum": "0",
+      "total": "200",
+      "state": "1 not read"
+    },
+    {
+      "unit": "USDC",
+      "payments": 2,
+      "sum": "1250",
+      "total": "1250",
+      "state": "matches"
+    },
+    {
+      "unit": "DAI",
+      "payments": 1,
+      "sum": "300",
+      "total": "300",
+      "state": "matches"
+    },
+    {
+      "unit": "USDT",
+      "payments": 1,
+      "sum": "400",
+      "total": "400",
+      "state": "matches"
+    },
+    {
+      "unit": "USD",
+      "payments": 1,
+      "sum": "2500",
+      "total": null,
+      "state": "no total given"
+    }
+  ],
+  "notes": [
+    "the total for SEK was not compared, because the amount of one of its payments could not be read"
+  ],
+  "notice": "This report is an input to a review before the batch is sent: not a compliance or sanctions screening and not a guarantee that a payment will arrive.",
+  "result": {
+    "pass": false,
+    "failOn": "error",
+    "text": "FAIL - 16 findings at or above error (16 error, 7 warning)"
+  }
+}

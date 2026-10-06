@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "payout-batch-check",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/INNERLUXES/payout-batch-check",
+          "rules": [
+            {
+              "id": "batch-unreadable",
+              "name": "batch-unreadable",
+              "shortDescription": {
+                "text": "the file is not JSON or CSV the readers can follow, or its top level is not an object, so no payment was read"
+              },
+              "help": {
+                "text": "Write the batch as one JSON object or as a CSV table with a header row (docs/inputs.md), and fix the line named. (input)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "field-missing",
+              "name": "field-missing",
+              "shortDescription": {
+                "text": "a field the checks need is not in the batch: the payments, a payment id, a beneficiary country, a rail, an amount, the currency and account of a bank payment, or the network, token and wallet of a stablecoin payment"
+              },
+              "help": {
+                "text": "Add the field named; docs/inputs.md lists what each payment needs. (input)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "field-unknown",
+              "name": "field-unknown",
+              "shortDescription": {
+                "text": "a key or column the tool does not read, often a misspelt one; its value was left out of every check"
+              },
+              "help": {
+                "text": "Correct the spelling to a field of docs/inputs.md, or remove it. (input)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "field-invalid",
+              "name": "field-invalid",
+              "shortDescription": {
+                "text": "a value of the wrong type or form: an object where text belongs, a rail the tool does not know, a field the rail of the payment does not take, a rate that is not a decimal above 0, or a batch field that differs from row to row"
+              },
+              "help": {
+                "text": "Write the value as docs/inputs.md shows: text for names, codes, accounts and addresses, decimal numbers for amounts and rates. (input)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "field-duplicate",
+              "name": "field-duplicate",
+              "shortDescription": {
+                "text": "a column is named twice in the header of a CSV file, so two readers of the file could take different values; the second column was left out"
+              },
+              "help": {
+                "text": "Keep one column of each name. In a JSON file a key written twice stops the reader (batch-unreadable). (input)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "secret-in-batch",
+              "name": "secret-in-batch",
+              "shortDescription": {
+                "text": "the batch holds a private key, a seed or a mnemonic, under a key or column named for one or as a value shaped like one; the tool never reads it and never shows it"
+              },
+              "help": {
+                "text": "Remove the value from the file and from wherever the file was copied, treat it as exposed and move the funds it controls. A payout batch names wallets by their public address only. (input)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "input"
+              }
+            },
+            {
+              "id": "iban-checksum",
+              "name": "iban-checksum",
+              "shortDescription": {
+                "text": "an IBAN that fails the MOD 97-10 check of ISO 13616, or is not in the form of an IBAN at all (two letters, two check digits, up to 30 letters and digits)"
+              },
+              "help": {
+                "text": "Copy the IBAN again from the beneficiary, in electronic form or in groups of four; never correct the check digits by hand to make it pass. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "iban-length",
+              "name": "iban-length",
+              "shortDescription": {
+                "text": "an IBAN whose length is not the one the IBAN registry of Swift gives its country; the IBAN of a country out of the saved registry is checked for its check digits only"
+              },
+              "help": {
+                "text": "Copy the IBAN again from the beneficiary; an IBAN of the right country always has the length of the registry. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "iban-country-mismatch",
+              "name": "iban-country-mismatch",
+              "shortDescription": {
+                "text": "the country of the IBAN is not the beneficiary country, and not a territory the registry lists under that IBAN prefix"
+              },
+              "help": {
+                "text": "Check the beneficiary country and the IBAN with the beneficiary; when the account is abroad on purpose, keep the warning and say so in the review. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "bic-format",
+              "name": "bic-format",
+              "shortDescription": {
+                "text": "a BIC that is not 8 or 11 characters of the form of ISO 9362 (four letters or digits, two letters of a country, two letters or digits, an optional branch code of three), or whose country letters are not a country code"
+              },
+              "help": {
+                "text": "Copy the BIC again from the bank of the beneficiary, in capitals and with no spaces. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "bic-country-mismatch",
+              "name": "bic-country-mismatch",
+              "shortDescription": {
+                "text": "the country letters of the BIC are not the beneficiary country, or a territory the IBAN registry lists under that country"
+              },
+              "help": {
+                "text": "Check the BIC with the beneficiary; when the bank is abroad on purpose, keep the warning and say so in the review. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "currency-unknown",
+              "name": "currency-unknown",
+              "shortDescription": {
+                "text": "a currency, a source currency or a debit currency that is not an alphabetic code of the ISO 4217 list SIX keeps, written in capitals"
+              },
+              "help": {
+                "text": "Write the three capital letters of the currency as list one of ISO 4217 gives them, such as EUR, USD or JPY. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "amount-decimals",
+              "name": "amount-decimals",
+              "shortDescription": {
+                "text": "an amount of a bank payment with more decimal places than the minor unit ISO 4217 gives its currency, such as JPY with any fraction or EUR with three places"
+              },
+              "help": {
+                "text": "Round the amount to the minor unit of the currency before the batch is sent, and make sure the rounding is the one the beneficiary is owed. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "amount-invalid",
+              "name": "amount-invalid",
+              "shortDescription": {
+                "text": "an amount that is 0, negative or not a plain decimal number (a sign, an exponent, a currency sign or a thousands separator)"
+              },
+              "help": {
+                "text": "Write the amount as a plain decimal number above 0, such as 1500.00, and move reversals and fees to a file of their own. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "amount-above-max",
+              "name": "amount-above-max",
+              "shortDescription": {
+                "text": "an amount above the limit --max-amount sets for every payment or for its currency or token; the check runs only when the option is given"
+              },
+              "help": {
+                "text": "Check the payment with its approver before the batch is sent, or set the limit your team has agreed with --max-amount. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "country-invalid",
+              "name": "country-invalid",
+              "shortDescription": {
+                "text": "a beneficiary country that is not a two-letter code of ISO 3166-1 as the UN M49 table lists them, written in capitals, such as UK for GB"
+              },
+              "help": {
+                "text": "Write the two capital letters of the country, such as GB for the United Kingdom. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "payment-id-duplicate",
+              "name": "payment-id-duplicate",
+              "shortDescription": {
+                "text": "two payments share a payment id (compared without case and outer spaces), so the second is refused or, where the id is not checked, paid as well"
+              },
+              "help": {
+                "text": "Give every payment an id of its own and keep it the same when the batch is sent again, so that a provider can refuse a payment it has already made. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "payment-possible-duplicate",
+              "name": "payment-possible-duplicate",
+              "shortDescription": {
+                "text": "two payments go to the same account (IBAN, account number and BIC, or wallet on a network) for the same amount in the same currency or token"
+              },
+              "help": {
+                "text": "Check that the two payments are meant; remove one when the same payment was written twice. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "beneficiary-name-missing",
+              "name": "beneficiary-name-missing",
+              "shortDescription": {
+                "text": "a payment with no beneficiary name, which cannot be screened against sanctions lists or matched to the account holder"
+              },
+              "help": {
+                "text": "Give the full name of the beneficiary as the bank or the wallet provider knows it. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "beneficiary-name-short",
+              "name": "beneficiary-name-short",
+              "shortDescription": {
+                "text": "a beneficiary name with fewer than three letters or digits, too short to screen or to match"
+              },
+              "help": {
+                "text": "Write the full name of the beneficiary, not initials or a placeholder. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "batch-total-mismatch",
+              "name": "batch-total-mismatch",
+              "shortDescription": {
+                "text": "the total the batch gives for a currency or token is not the sum of its payments in that unit, or a unit with payments has no total"
+              },
+              "help": {
+                "text": "Work out the totals again from the rows, and find the row that was added or lost before the batch is sent. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "wallet-address-malformed",
+              "name": "wallet-address-malformed",
+              "shortDescription": {
+                "text": "a wallet address not in the form of its network: 0x and 40 hex digits (not the zero address) on an EVM network, 32 to 44 base58 characters on Solana, T and 33 base58 characters on Tron"
+              },
+              "help": {
+                "text": "Copy the wallet address again from the beneficiary, and confirm it with a small test payment before a large one. (documented)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "documented"
+              }
+            },
+            {
+              "id": "token-not-allowed",
+              "name": "token-not-allowed",
+              "shortDescription": {
+                "text": "a stablecoin payment in a token that is not in the list of tokens the batch may pay in (USDC and USDT unless --tokens sets another)"
+              },
+              "help": {
+                "text": "Pay in a token of the list, or give the tokens your team pays in with --tokens. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "network-token-unknown",
+              "name": "network-token-unknown",
+              "shortDescription": {
+                "text": "a stablecoin payment on a network out of the tool's table, or in a token the table does not list on that network"
+              },
+              "help": {
+                "text": "Check by hand that the issuer of the token lists a contract on the network, and how a wallet address on it is written. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            },
+            {
+              "id": "fx-rate-missing",
+              "name": "fx-rate-missing",
+              "shortDescription": {
+                "text": "a bank payment in a currency other than its source currency, or the debit currency of the batch, with no FX rate"
+              },
+              "help": {
+                "text": "Give the rate the batch was priced at in fxRate, so that the amount debited is known before the batch is sent. (best practice)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "kind": "best practice"
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "examples/good/batch.csv"
+          }
+        }
+      ],
+      "results": [],
+      "properties": {
+        "notice": "This report is an input to a review before the batch is sent: not a compliance or sanctions screening and not a guarantee that a payment will arrive.",
+        "result": "PASS - no finding at or above error",
+        "sources": [
+          "https://www.swift.com/standards/data-standards/iban-international-bank-account-number",
+          "https://www.swift.com/swift-resource/11971/download",
+          "https://tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Bottom+Menu/IBAN/Communique",
+          "https://www.swift.com/standards/data-standards/bic-business-identifier-code",
+          "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml",
+          "https://unstats.un.org/unsd/methodology/m49/overview/",
+          "https://ethereum.org/en/developers/docs/accounts/",
+          "https://solana.com/docs/core/accounts/account-structure",
+          "https://developers.tron.network/docs/account"
+        ]
+      }
+    }
+  ]
+}

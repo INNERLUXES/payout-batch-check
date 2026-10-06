@@ -1,0 +1,12 @@
+paymentId,beneficiaryName,beneficiaryCountry,rail,iban,accountNumber,bic,currency,amount,network,token,walletAddress,purposeCode,fxRate,batchId,debitCurrency,notes
+G-001,Harbor Example Supplies GmbH,DE,bank,DE89370400440532013000,,EXMPDEFFXXX,EUR,1500.00,,,,SUPP,,PAYOUT-EXAMPLE-GOOD,EUR,"A made-up batch for the examples of payout-batch-check: every name is made up, every IBAN is an example of the IBAN registry of Swift, every BIC is made up with EXMP as its party prefix, and every wallet address is one character written many times."
+G-002,"Lantern Example Studio, SARL",FR,bank,FR1420041010050500013M02606,,EXMPFRPP,EUR,820.00,,,,SUPP,,PAYOUT-EXAMPLE-GOOD,EUR,
+G-003,Meadow Example Design BV,NL,bank,NL91 ABNA 0417 1643 00,,EXMPNL2A,EUR,640.00,,,,,,PAYOUT-EXAMPLE-GOOD,EUR,
+G-004,Willow Example Trading Ltd,GB,bank,GB29NWBK60161331926819,,EXMPGB2L,GBP,1200.00,,,,,0.8571,PAYOUT-EXAMPLE-GOOD,EUR,
+G-005,Granite Example Works AG,CH,bank,CH9300762011623852957,,EXMPCHZZ,CHF,950.00,,,,,0.9364,PAYOUT-EXAMPLE-GOOD,EUR,
+G-006,Example Kogyo KK,JP,bank,,1234567,EXMPJPJT,JPY,150000,,,,,162.40,PAYOUT-EXAMPLE-GOOD,EUR,
+G-007,Example Trading Co WLL,KW,bank,KW81CBKU0000000000001234560101,,EXMPKWKW,KWD,250.125,,,,,0.3301,PAYOUT-EXAMPLE-GOOD,EUR,
+G-008,Prairie Example Labs Inc,US,bank,,000123456789,EXMPUS33,USD,2500.00,,,,,1.0850,PAYOUT-EXAMPLE-GOOD,EUR,
+G-009,Lumen Example Pte Ltd,SG,stablecoin,,,,,750.00,ethereum,USDC,0x1111111111111111111111111111111111111111,,,PAYOUT-EXAMPLE-GOOD,EUR,
+G-010,Ridge Example Ltda,BR,stablecoin,,,,,500.00,solana,USDC,GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG,,,PAYOUT-EXAMPLE-GOOD,EUR,
+G-011,Coral Example Ltd,KE,stablecoin,,,,,400.00,tron,USDT,THHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH,,,PAYOUT-EXAMPLE-GOOD,EUR,

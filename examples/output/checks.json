@@ -1,0 +1,249 @@
+[
+  {
+    "id": "batch-unreadable",
+    "severity": "error",
+    "kind": "input",
+    "summary": "the file is not JSON or CSV the readers can follow, or its top level is not an object, so no payment was read",
+    "fix": "Write the batch as one JSON object or as a CSV table with a header row (docs/inputs.md), and fix the line named.",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "field-missing",
+    "severity": "error",
+    "kind": "input",
+    "summary": "a field the checks need is not in the batch: the payments, a payment id, a beneficiary country, a rail, an amount, the currency and account of a bank payment, or the network, token and wallet of a stablecoin payment",
+    "fix": "Add the field named; docs/inputs.md lists what each payment needs.",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "field-unknown",
+    "severity": "warning",
+    "kind": "input",
+    "summary": "a key or column the tool does not read, often a misspelt one; its value was left out of every check",
+    "fix": "Correct the spelling to a field of docs/inputs.md, or remove it.",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "field-invalid",
+    "severity": "error",
+    "kind": "input",
+    "summary": "a value of the wrong type or form: an object where text belongs, a rail the tool does not know, a field the rail of the payment does not take, a rate that is not a decimal above 0, or a batch field that differs from row to row",
+    "fix": "Write the value as docs/inputs.md shows: text for names, codes, accounts and addresses, decimal numbers for amounts and rates.",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "field-duplicate",
+    "severity": "error",
+    "kind": "input",
+    "summary": "a column is named twice in the header of a CSV file, so two readers of the file could take different values; the second column was left out",
+    "fix": "Keep one column of each name. In a JSON file a key written twice stops the reader (batch-unreadable).",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "secret-in-batch",
+    "severity": "error",
+    "kind": "input",
+    "summary": "the batch holds a private key, a seed or a mnemonic, under a key or column named for one or as a value shaped like one; the tool never reads it and never shows it",
+    "fix": "Remove the value from the file and from wherever the file was copied, treat it as exposed and move the funds it controls. A payout batch names wallets by their public address only.",
+    "basis": [],
+    "own": null
+  },
+  {
+    "id": "iban-checksum",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "an IBAN that fails the MOD 97-10 check of ISO 13616, or is not in the form of an IBAN at all (two letters, two check digits, up to 30 letters and digits)",
+    "fix": "Copy the IBAN again from the beneficiary, in electronic form or in groups of four; never correct the check digits by hand to make it pass.",
+    "basis": [
+      "iban-mod97",
+      "iban-reject"
+    ],
+    "own": null
+  },
+  {
+    "id": "iban-length",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "an IBAN whose length is not the one the IBAN registry of Swift gives its country; the IBAN of a country out of the saved registry is checked for its check digits only",
+    "fix": "Copy the IBAN again from the beneficiary; an IBAN of the right country always has the length of the registry.",
+    "basis": [
+      "iban-authority",
+      "iban-lengths"
+    ],
+    "own": null
+  },
+  {
+    "id": "iban-country-mismatch",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "the country of the IBAN is not the beneficiary country, and not a territory the registry lists under that IBAN prefix",
+    "fix": "Check the beneficiary country and the IBAN with the beneficiary; when the account is abroad on purpose, keep the warning and say so in the review.",
+    "basis": [
+      "iban-territories"
+    ],
+    "own": "comparing the country of the IBAN with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; a beneficiary may hold an account abroad, and the registry only says which territories a prefix covers"
+  },
+  {
+    "id": "bic-format",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "a BIC that is not 8 or 11 characters of the form of ISO 9362 (four letters or digits, two letters of a country, two letters or digits, an optional branch code of three), or whose country letters are not a country code",
+    "fix": "Copy the BIC again from the bank of the beneficiary, in capitals and with no spaces.",
+    "basis": [
+      "bic-structure"
+    ],
+    "own": null
+  },
+  {
+    "id": "bic-country-mismatch",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "the country letters of the BIC are not the beneficiary country, or a territory the IBAN registry lists under that country",
+    "fix": "Check the BIC with the beneficiary; when the bank is abroad on purpose, keep the warning and say so in the review.",
+    "basis": [
+      "bic-structure"
+    ],
+    "own": "comparing the country of the BIC with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; the BIC page gives the place of the country code, not a rule that the bank and the beneficiary share a country"
+  },
+  {
+    "id": "currency-unknown",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "a currency, a source currency or a debit currency that is not an alphabetic code of the ISO 4217 list SIX keeps, written in capitals",
+    "fix": "Write the three capital letters of the currency as list one of ISO 4217 gives them, such as EUR, USD or JPY.",
+    "basis": [
+      "iso4217-codes"
+    ],
+    "own": null
+  },
+  {
+    "id": "amount-decimals",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "an amount of a bank payment with more decimal places than the minor unit ISO 4217 gives its currency, such as JPY with any fraction or EUR with three places",
+    "fix": "Round the amount to the minor unit of the currency before the batch is sent, and make sure the rounding is the one the beneficiary is owed.",
+    "basis": [
+      "iso4217-minor"
+    ],
+    "own": null
+  },
+  {
+    "id": "amount-invalid",
+    "severity": "error",
+    "kind": "best practice",
+    "summary": "an amount that is 0, negative or not a plain decimal number (a sign, an exponent, a currency sign or a thousands separator)",
+    "fix": "Write the amount as a plain decimal number above 0, such as 1500.00, and move reversals and fees to a file of their own.",
+    "basis": [],
+    "own": "refusing an amount of 0, a negative amount and an amount in another notation is a best practice of this tool, not a rule in the pages it cites; none of the cited pages sets a rule on how a batch writes an amount"
+  },
+  {
+    "id": "amount-above-max",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "an amount above the limit --max-amount sets for every payment or for its currency or token; the check runs only when the option is given",
+    "fix": "Check the payment with its approver before the batch is sent, or set the limit your team has agreed with --max-amount.",
+    "basis": [],
+    "own": "a limit on the amount of one payment is a best practice of this tool, not a rule in the pages it cites; the limit is the team's own, and the tool has none of its own"
+  },
+  {
+    "id": "country-invalid",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "a beneficiary country that is not a two-letter code of ISO 3166-1 as the UN M49 table lists them, written in capitals, such as UK for GB",
+    "fix": "Write the two capital letters of the country, such as GB for the United Kingdom.",
+    "basis": [
+      "m49-alpha2"
+    ],
+    "own": null
+  },
+  {
+    "id": "payment-id-duplicate",
+    "severity": "error",
+    "kind": "best practice",
+    "summary": "two payments share a payment id (compared without case and outer spaces), so the second is refused or, where the id is not checked, paid as well",
+    "fix": "Give every payment an id of its own and keep it the same when the batch is sent again, so that a provider can refuse a payment it has already made.",
+    "basis": [],
+    "own": "asking for an id of its own for each payment is a best practice of this tool, not a rule in the pages it cites; providers use the id to find a payment and to refuse one sent twice, and no cited page sets the rule"
+  },
+  {
+    "id": "payment-possible-duplicate",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "two payments go to the same account (IBAN, account number and BIC, or wallet on a network) for the same amount in the same currency or token",
+    "fix": "Check that the two payments are meant; remove one when the same payment was written twice.",
+    "basis": [],
+    "own": "looking for two payments of one amount to one account is a best practice of this tool, not a rule in the pages it cites; two such payments can be right, such as two invoices of the same amount"
+  },
+  {
+    "id": "beneficiary-name-missing",
+    "severity": "error",
+    "kind": "best practice",
+    "summary": "a payment with no beneficiary name, which cannot be screened against sanctions lists or matched to the account holder",
+    "fix": "Give the full name of the beneficiary as the bank or the wallet provider knows it.",
+    "basis": [],
+    "own": "asking for a name on every payment is a best practice of this tool, not a rule in the pages it cites; the name is what sanctions screening and the bank of the beneficiary read, and the cited pages are about codes and accounts"
+  },
+  {
+    "id": "beneficiary-name-short",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "a beneficiary name with fewer than three letters or digits, too short to screen or to match",
+    "fix": "Write the full name of the beneficiary, not initials or a placeholder.",
+    "basis": [],
+    "own": "the least length of a name is a best practice of this tool, not a rule in the pages it cites; three letters is the tool's own floor, and a real name can be that short"
+  },
+  {
+    "id": "batch-total-mismatch",
+    "severity": "error",
+    "kind": "best practice",
+    "summary": "the total the batch gives for a currency or token is not the sum of its payments in that unit, or a unit with payments has no total",
+    "fix": "Work out the totals again from the rows, and find the row that was added or lost before the batch is sent.",
+    "basis": [],
+    "own": "comparing the totals of a batch with its rows is a best practice of this tool, not a rule in the pages it cites; a control total is how many banks and providers catch a changed file, and no cited page sets the rule"
+  },
+  {
+    "id": "wallet-address-malformed",
+    "severity": "error",
+    "kind": "documented",
+    "summary": "a wallet address not in the form of its network: 0x and 40 hex digits (not the zero address) on an EVM network, 32 to 44 base58 characters on Solana, T and 33 base58 characters on Tron",
+    "fix": "Copy the wallet address again from the beneficiary, and confirm it with a small test payment before a large one.",
+    "basis": [
+      "evm-address",
+      "solana-address",
+      "tron-address"
+    ],
+    "own": null
+  },
+  {
+    "id": "token-not-allowed",
+    "severity": "error",
+    "kind": "best practice",
+    "summary": "a stablecoin payment in a token that is not in the list of tokens the batch may pay in (USDC and USDT unless --tokens sets another)",
+    "fix": "Pay in a token of the list, or give the tokens your team pays in with --tokens.",
+    "basis": [],
+    "own": "a list of tokens a batch may pay in is a best practice of this tool, not a rule in the pages it cites; the default list is the tool's own and --tokens sets yours"
+  },
+  {
+    "id": "network-token-unknown",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "a stablecoin payment on a network out of the tool's table, or in a token the table does not list on that network",
+    "fix": "Check by hand that the issuer of the token lists a contract on the network, and how a wallet address on it is written.",
+    "basis": [],
+    "own": "the table of networks and of the tokens on each is a best practice of this tool, not a rule in the pages it cites; no cited page gives one, and a pair out of it is a question, not an error"
+  },
+  {
+    "id": "fx-rate-missing",
+    "severity": "warning",
+    "kind": "best practice",
+    "summary": "a bank payment in a currency other than its source currency, or the debit currency of the batch, with no FX rate",
+    "fix": "Give the rate the batch was priced at in fxRate, so that the amount debited is known before the batch is sent.",
+    "basis": [],
+    "own": "asking for the rate of a converted payment is a best practice of this tool, not a rule in the pages it cites; a bank can convert at its own rate, and the batch then debits an amount no one checked"
+  }
+]

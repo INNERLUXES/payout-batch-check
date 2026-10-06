@@ -1,0 +1,284 @@
+Source: https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml
+Read as the XML file of ISO 4217 list one (current currency and funds code list) that SIX, the maintenance agency of ISO 4217, serves at this address (linked from https://www.six-group.com/en/products-services/financial-information/market-reference-data/data-standards.html), and kept as one line for each CcyNtry element with its fields in the order of the first line, less the attribute that research/sources.md names; the list itself is the authority.
+
+ENTITY (CtryNm) | Currency (CcyNm) | Alphabetic Code (Ccy) | Numeric Code (CcyNbr) | Minor unit (CcyMnrUnts) | Fund (CcyNm IsFund)
+AFGHANISTAN | Afghani | AFN | 971 | 2 | no
+ALAND ISLANDS | Euro | EUR | 978 | 2 | no
+ALBANIA | Lek | ALL | 008 | 2 | no
+ALGERIA | Algerian Dinar | DZD | 012 | 2 | no
+AMERICAN SAMOA | US Dollar | USD | 840 | 2 | no
+ANDORRA | Euro | EUR | 978 | 2 | no
+ANGOLA | Kwanza | AOA | 973 | 2 | no
+ANGUILLA | East Caribbean Dollar | XCD | 951 | 2 | no
+ANTARCTICA | No universal currency |  |  |  | no
+ANTIGUA AND BARBUDA | East Caribbean Dollar | XCD | 951 | 2 | no
+ARAB MONETARY FUND | Arab Accounting Dinar | XAD | 396 | 2 | yes
+ARGENTINA | Argentine Peso | ARS | 032 | 2 | no
+ARMENIA | Armenian Dram | AMD | 051 | 2 | no
+ARUBA | Aruban Florin | AWG | 533 | 2 | no
+AUSTRALIA | Australian Dollar | AUD | 036 | 2 | no
+AUSTRIA | Euro | EUR | 978 | 2 | no
+AZERBAIJAN | Azerbaijan Manat | AZN | 944 | 2 | no
+BAHAMAS (THE) | Bahamian Dollar | BSD | 044 | 2 | no
+BAHRAIN | Bahraini Dinar | BHD | 048 | 3 | no
+BANGLADESH | Taka | BDT | 050 | 2 | no
+BARBADOS | Barbados Dollar | BBD | 052 | 2 | no
+BELARUS | Belarusian Ruble | BYN | 933 | 2 | no
+BELGIUM | Euro | EUR | 978 | 2 | no
+BELIZE | Belize Dollar | BZD | 084 | 2 | no
+BENIN | CFA Franc BCEAO | XOF | 952 | 0 | no
+BERMUDA | Bermudian Dollar | BMD | 060 | 2 | no
+BHUTAN | Indian Rupee | INR | 356 | 2 | no
+BHUTAN | Ngultrum | BTN | 064 | 2 | no
+BOLIVIA (PLURINATIONAL STATE OF) | Boliviano | BOB | 068 | 2 | no
+BOLIVIA (PLURINATIONAL STATE OF) | Mvdol | BOV | 984 | 2 | yes
+BONAIRE, SINT EUSTATIUS AND SABA | US Dollar | USD | 840 | 2 | no
+BOSNIA AND HERZEGOVINA | Convertible Mark | BAM | 977 | 2 | no
+BOTSWANA | Pula | BWP | 072 | 2 | no
+BOUVET ISLAND | Norwegian Krone | NOK | 578 | 2 | no
+BRAZIL | Brazilian Real | BRL | 986 | 2 | no
+BRITISH INDIAN OCEAN TERRITORY (THE) | US Dollar | USD | 840 | 2 | no
+BRUNEI DARUSSALAM | Brunei Dollar | BND | 096 | 2 | no
+BULGARIA | Euro | EUR | 978 | 2 | no
+BURKINA FASO | CFA Franc BCEAO | XOF | 952 | 0 | no
+BURUNDI | Burundi Franc | BIF | 108 | 0 | no
+CABO VERDE | Cabo Verde Escudo | CVE | 132 | 2 | no
+CAMBODIA | Riel | KHR | 116 | 2 | no
+CAMEROON | CFA Franc BEAC | XAF | 950 | 0 | no
+CANADA | Canadian Dollar | CAD | 124 | 2 | no
+CAYMAN ISLANDS (THE) | Cayman Islands Dollar | KYD | 136 | 2 | no
+CENTRAL AFRICAN REPUBLIC (THE) | CFA Franc BEAC | XAF | 950 | 0 | no
+CHAD | CFA Franc BEAC | XAF | 950 | 0 | no
+CHILE | Chilean Peso | CLP | 152 | 0 | no
+CHILE | Unidad de Fomento | CLF | 990 | 4 | yes
+CHINA | Yuan Renminbi | CNY | 156 | 2 | no
+CHRISTMAS ISLAND | Australian Dollar | AUD | 036 | 2 | no
+COCOS (KEELING) ISLANDS (THE) | Australian Dollar | AUD | 036 | 2 | no
+COLOMBIA | Colombian Peso | COP | 170 | 2 | no
+COLOMBIA | Unidad de Valor Real | COU | 970 | 2 | yes
+COMOROS (THE) | Comorian Franc | KMF | 174 | 0 | no
+CONGO (THE DEMOCRATIC REPUBLIC OF THE) | Congolese Franc | CDF | 976 | 2 | no
+CONGO (THE) | CFA Franc BEAC | XAF | 950 | 0 | no
+COOK ISLANDS (THE) | New Zealand Dollar | NZD | 554 | 2 | no
+COSTA RICA | Costa Rican Colon | CRC | 188 | 2 | no
+COTE D'IVOIRE | CFA Franc BCEAO | XOF | 952 | 0 | no
+CROATIA | Euro | EUR | 978 | 2 | no
+CUBA | Cuban Peso | CUP | 192 | 2 | no
+CURACAO | Caribbean Guilder | XCG | 532 | 2 | no
+CYPRUS | Euro | EUR | 978 | 2 | no
+CZECHIA | Czech Koruna | CZK | 203 | 2 | no
+DENMARK | Danish Krone | DKK | 208 | 2 | no
+DJIBOUTI | Djibouti Franc | DJF | 262 | 0 | no
+DOMINICA | East Caribbean Dollar | XCD | 951 | 2 | no
+DOMINICAN REPUBLIC (THE) | Dominican Peso | DOP | 214 | 2 | no
+ECUADOR | US Dollar | USD | 840 | 2 | no
+EGYPT | Egyptian Pound | EGP | 818 | 2 | no
+EL SALVADOR | El Salvador Colon | SVC | 222 | 2 | no
+EL SALVADOR | US Dollar | USD | 840 | 2 | no
+EQUATORIAL GUINEA | CFA Franc BEAC | XAF | 950 | 0 | no
+ERITREA | Nakfa | ERN | 232 | 2 | no
+ESTONIA | Euro | EUR | 978 | 2 | no
+ESWATINI | Lilangeni | SZL | 748 | 2 | no
+ETHIOPIA | Ethiopian Birr | ETB | 230 | 2 | no
+EUROPEAN UNION | Euro | EUR | 978 | 2 | no
+FALKLAND ISLANDS (THE) [MALVINAS] | Falkland Islands Pound | FKP | 238 | 2 | no
+FAROE ISLANDS (THE) | Danish Krone | DKK | 208 | 2 | no
+FIJI | Fiji Dollar | FJD | 242 | 2 | no
+FINLAND | Euro | EUR | 978 | 2 | no
+FRANCE | Euro | EUR | 978 | 2 | no
+FRENCH GUIANA | Euro | EUR | 978 | 2 | no
+FRENCH POLYNESIA | CFP Franc | XPF | 953 | 0 | no
+FRENCH SOUTHERN TERRITORIES (THE) | Euro | EUR | 978 | 2 | no
+GABON | CFA Franc BEAC | XAF | 950 | 0 | no
+GAMBIA (THE) | Dalasi | GMD | 270 | 2 | no
+GEORGIA | Lari | GEL | 981 | 2 | no
+GERMANY | Euro | EUR | 978 | 2 | no
+GHANA | Ghana Cedi | GHS | 936 | 2 | no
+GIBRALTAR | Gibraltar Pound | GIP | 292 | 2 | no
+GREECE | Euro | EUR | 978 | 2 | no
+GREENLAND | Danish Krone | DKK | 208 | 2 | no
+GRENADA | East Caribbean Dollar | XCD | 951 | 2 | no
+GUADELOUPE | Euro | EUR | 978 | 2 | no
+GUAM | US Dollar | USD | 840 | 2 | no
+GUATEMALA | Quetzal | GTQ | 320 | 2 | no
+GUERNSEY | Pound Sterling | GBP | 826 | 2 | no
+GUINEA | Guinean Franc | GNF | 324 | 0 | no
+GUINEA-BISSAU | CFA Franc BCEAO | XOF | 952 | 0 | no
+GUYANA | Guyana Dollar | GYD | 328 | 2 | no
+HAITI | Gourde | HTG | 332 | 2 | no
+HAITI | US Dollar | USD | 840 | 2 | no
+HEARD ISLAND AND McDONALD ISLANDS | Australian Dollar | AUD | 036 | 2 | no
+HOLY SEE (THE) | Euro | EUR | 978 | 2 | no
+HONDURAS | Lempira | HNL | 340 | 2 | no
+HONG KONG | Hong Kong Dollar | HKD | 344 | 2 | no
+HUNGARY | Forint | HUF | 348 | 2 | no
+ICELAND | Iceland Krona | ISK | 352 | 0 | no
+INDIA | Indian Rupee | INR | 356 | 2 | no
+INDONESIA | Rupiah | IDR | 360 | 2 | no
+INTERNATIONAL MONETARY FUND (IMF) | SDR (Special Drawing Right) | XDR | 960 | N.A. | no
+IRAN (ISLAMIC REPUBLIC OF) | Iranian Rial | IRR | 364 | 2 | no
+IRAQ | Iraqi Dinar | IQD | 368 | 3 | no
+IRELAND | Euro | EUR | 978 | 2 | no
+ISLE OF MAN | Pound Sterling | GBP | 826 | 2 | no
+ISRAEL | New Israeli Sheqel | ILS | 376 | 2 | no
+ITALY | Euro | EUR | 978 | 2 | no
+JAMAICA | Jamaican Dollar | JMD | 388 | 2 | no
+JAPAN | Yen | JPY | 392 | 0 | no
+JERSEY | Pound Sterling | GBP | 826 | 2 | no
+JORDAN | Jordanian Dinar | JOD | 400 | 3 | no
+KAZAKHSTAN | Tenge | KZT | 398 | 2 | no
+KENYA | Kenyan Shilling | KES | 404 | 2 | no
+KIRIBATI | Australian Dollar | AUD | 036 | 2 | no
+KOREA (THE DEMOCRATIC PEOPLE'S REPUBLIC OF) | North Korean Won | KPW | 408 | 2 | no
+KOREA (THE REPUBLIC OF) | Won | KRW | 410 | 0 | no
+KUWAIT | Kuwaiti Dinar | KWD | 414 | 3 | no
+KYRGYZSTAN | Som | KGS | 417 | 2 | no
+LAO PEOPLE'S DEMOCRATIC REPUBLIC (THE) | Lao Kip | LAK | 418 | 2 | no
+LATVIA | Euro | EUR | 978 | 2 | no
+LEBANON | Lebanese Pound | LBP | 422 | 2 | no
+LESOTHO | Loti | LSL | 426 | 2 | no
+LESOTHO | Rand | ZAR | 710 | 2 | no
+LIBERIA | Liberian Dollar | LRD | 430 | 2 | no
+LIBYA | Libyan Dinar | LYD | 434 | 3 | no
+LIECHTENSTEIN | Swiss Franc | CHF | 756 | 2 | no
+LITHUANIA | Euro | EUR | 978 | 2 | no
+LUXEMBOURG | Euro | EUR | 978 | 2 | no
+MACAO | Pataca | MOP | 446 | 2 | no
+NORTH MACEDONIA | Denar | MKD | 807 | 2 | no
+MADAGASCAR | Malagasy Ariary | MGA | 969 | 2 | no
+MALAWI | Malawi Kwacha | MWK | 454 | 2 | no
+MALAYSIA | Malaysian Ringgit | MYR | 458 | 2 | no
+MALDIVES | Rufiyaa | MVR | 462 | 2 | no
+MALI | CFA Franc BCEAO | XOF | 952 | 0 | no
+MALTA | Euro | EUR | 978 | 2 | no
+MARSHALL ISLANDS (THE) | US Dollar | USD | 840 | 2 | no
+MARTINIQUE | Euro | EUR | 978 | 2 | no
+MAURITANIA | Ouguiya | MRU | 929 | 2 | no
+MAURITIUS | Mauritius Rupee | MUR | 480 | 2 | no
+MAYOTTE | Euro | EUR | 978 | 2 | no
+MEMBER COUNTRIES OF THE AFRICAN DEVELOPMENT BANK GROUP | ADB Unit of Account | XUA | 965 | N.A. | no
+MEXICO | Mexican Peso | MXN | 484 | 2 | no
+MEXICO | Mexican Unidad de Inversion (UDI) | MXV | 979 | 2 | yes
+MICRONESIA (FEDERATED STATES OF) | US Dollar | USD | 840 | 2 | no
+MOLDOVA (THE REPUBLIC OF) | Moldovan Leu | MDL | 498 | 2 | no
+MONACO | Euro | EUR | 978 | 2 | no
+MONGOLIA | Tugrik | MNT | 496 | 2 | no
+MONTENEGRO | Euro | EUR | 978 | 2 | no
+MONTSERRAT | East Caribbean Dollar | XCD | 951 | 2 | no
+MOROCCO | Moroccan Dirham | MAD | 504 | 2 | no
+MOZAMBIQUE | Mozambique Metical | MZN | 943 | 2 | no
+MYANMAR | Kyat | MMK | 104 | 2 | no
+NAMIBIA | Namibia Dollar | NAD | 516 | 2 | no
+NAMIBIA | Rand | ZAR | 710 | 2 | no
+NAURU | Australian Dollar | AUD | 036 | 2 | no
+NEPAL | Nepalese Rupee | NPR | 524 | 2 | no
+NETHERLANDS (THE) | Euro | EUR | 978 | 2 | no
+NEW CALEDONIA | CFP Franc | XPF | 953 | 0 | no
+NEW ZEALAND | New Zealand Dollar | NZD | 554 | 2 | no
+NICARAGUA | Cordoba Oro | NIO | 558 | 2 | no
+NIGER (THE) | CFA Franc BCEAO | XOF | 952 | 0 | no
+NIGERIA | Naira | NGN | 566 | 2 | no
+NIUE | New Zealand Dollar | NZD | 554 | 2 | no
+NORFOLK ISLAND | Australian Dollar | AUD | 036 | 2 | no
+NORTHERN MARIANA ISLANDS (THE) | US Dollar | USD | 840 | 2 | no
+NORWAY | Norwegian Krone | NOK | 578 | 2 | no
+OMAN | Rial Omani | OMR | 512 | 3 | no
+PAKISTAN | Pakistan Rupee | PKR | 586 | 2 | no
+PALAU | US Dollar | USD | 840 | 2 | no
+PALESTINE, STATE OF | No universal currency |  |  |  | no
+PANAMA | Balboa | PAB | 590 | 2 | no
+PANAMA | US Dollar | USD | 840 | 2 | no
+PAPUA NEW GUINEA | Kina | PGK | 598 | 2 | no
+PARAGUAY | Guarani | PYG | 600 | 0 | no
+PERU | Sol | PEN | 604 | 2 | no
+PHILIPPINES (THE) | Philippine Peso | PHP | 608 | 2 | no
+PITCAIRN | New Zealand Dollar | NZD | 554 | 2 | no
+POLAND | Zloty | PLN | 985 | 2 | no
+PORTUGAL | Euro | EUR | 978 | 2 | no
+PUERTO RICO | US Dollar | USD | 840 | 2 | no
+QATAR | Qatari Rial | QAR | 634 | 2 | no
+REUNION | Euro | EUR | 978 | 2 | no
+ROMANIA | Romanian Leu | RON | 946 | 2 | no
+RUSSIAN FEDERATION (THE) | Russian Ruble | RUB | 643 | 2 | no
+RWANDA | Rwanda Franc | RWF | 646 | 0 | no
+SAINT BARTHELEMY | Euro | EUR | 978 | 2 | no
+SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA | Saint Helena Pound | SHP | 654 | 2 | no
+SAINT KITTS AND NEVIS | East Caribbean Dollar | XCD | 951 | 2 | no
+SAINT LUCIA | East Caribbean Dollar | XCD | 951 | 2 | no
+SAINT MARTIN (FRENCH PART) | Euro | EUR | 978 | 2 | no
+SAINT PIERRE AND MIQUELON | Euro | EUR | 978 | 2 | no
+SAINT VINCENT AND THE GRENADINES | East Caribbean Dollar | XCD | 951 | 2 | no
+SAMOA | Tala | WST | 882 | 2 | no
+SAN MARINO | Euro | EUR | 978 | 2 | no
+SAO TOME AND PRINCIPE | Dobra | STN | 930 | 2 | no
+SAUDI ARABIA | Saudi Riyal | SAR | 682 | 2 | no
+SENEGAL | CFA Franc BCEAO | XOF | 952 | 0 | no
+SERBIA | Serbian Dinar | RSD | 941 | 2 | no
+SEYCHELLES | Seychelles Rupee | SCR | 690 | 2 | no
+SIERRA LEONE | Leone | SLE | 925 | 2 | no
+SINGAPORE | Singapore Dollar | SGD | 702 | 2 | no
+SINT MAARTEN (DUTCH PART) | Caribbean Guilder | XCG | 532 | 2 | no
+SISTEMA UNITARIO DE COMPENSACION REGIONAL DE PAGOS "SUCRE" | Sucre | XSU | 994 | N.A. | no
+SLOVAKIA | Euro | EUR | 978 | 2 | no
+SLOVENIA | Euro | EUR | 978 | 2 | no
+SOLOMON ISLANDS | Solomon Islands Dollar | SBD | 090 | 2 | no
+SOMALIA | Somali Shilling | SOS | 706 | 2 | no
+SOUTH AFRICA | Rand | ZAR | 710 | 2 | no
+SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS | No universal currency |  |  |  | no
+SOUTH SUDAN | South Sudanese Pound | SSP | 728 | 2 | no
+SPAIN | Euro | EUR | 978 | 2 | no
+SRI LANKA | Sri Lanka Rupee | LKR | 144 | 2 | no
+SUDAN (THE) | Sudanese Pound | SDG | 938 | 2 | no
+SURINAME | Surinam Dollar | SRD | 968 | 2 | no
+SVALBARD AND JAN MAYEN | Norwegian Krone | NOK | 578 | 2 | no
+SWEDEN | Swedish Krona | SEK | 752 | 2 | no
+SWITZERLAND | Swiss Franc | CHF | 756 | 2 | no
+SWITZERLAND | WIR Euro | CHE | 947 | 2 | yes
+SWITZERLAND | WIR Franc | CHW | 948 | 2 | yes
+SYRIAN ARAB REPUBLIC | Syrian Pound | SYP | 760 | 2 | no
+TAIWAN (PROVINCE OF CHINA) | New Taiwan Dollar | TWD | 901 | 2 | no
+TAJIKISTAN | Somoni | TJS | 972 | 2 | no
+TANZANIA, UNITED REPUBLIC OF | Tanzanian Shilling | TZS | 834 | 2 | no
+THAILAND | Baht | THB | 764 | 2 | no
+TIMOR-LESTE | US Dollar | USD | 840 | 2 | no
+TOGO | CFA Franc BCEAO | XOF | 952 | 0 | no
+TOKELAU | New Zealand Dollar | NZD | 554 | 2 | no
+TONGA | Pa'anga | TOP | 776 | 2 | no
+TRINIDAD AND TOBAGO | Trinidad and Tobago Dollar | TTD | 780 | 2 | no
+TUNISIA | Tunisian Dinar | TND | 788 | 3 | no
+TURKIYE | Turkish Lira | TRY | 949 | 2 | no
+TURKMENISTAN | Turkmenistan New Manat | TMT | 934 | 2 | no
+TURKS AND CAICOS ISLANDS (THE) | US Dollar | USD | 840 | 2 | no
+TUVALU | Australian Dollar | AUD | 036 | 2 | no
+UGANDA | Uganda Shilling | UGX | 800 | 0 | no
+UKRAINE | Hryvnia | UAH | 980 | 2 | no
+UNITED ARAB EMIRATES (THE) | UAE Dirham | AED | 784 | 2 | no
+UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE) | Pound Sterling | GBP | 826 | 2 | no
+UNITED STATES MINOR OUTLYING ISLANDS (THE) | US Dollar | USD | 840 | 2 | no
+UNITED STATES OF AMERICA (THE) | US Dollar | USD | 840 | 2 | no
+UNITED STATES OF AMERICA (THE) | US Dollar (Next day) | USN | 997 | 2 | yes
+URUGUAY | Peso Uruguayo | UYU | 858 | 2 | no
+URUGUAY | Uruguay Peso en Unidades Indexadas (UI) | UYI | 940 | 0 | yes
+URUGUAY | Unidad Previsional | UYW | 927 | 4 | yes
+UZBEKISTAN | Uzbekistan Sum | UZS | 860 | 2 | no
+VANUATU | Vatu | VUV | 548 | 0 | no
+VENEZUELA (BOLIVARIAN REPUBLIC OF) | Bolivar Soberano | VES | 928 | 2 | no
+VENEZUELA (BOLIVARIAN REPUBLIC OF) | Bolivar Soberano | VED | 926 | 2 | no
+VIET NAM | Dong | VND | 704 | 0 | no
+VIRGIN ISLANDS (BRITISH) | US Dollar | USD | 840 | 2 | no
+VIRGIN ISLANDS (U.S.) | US Dollar | USD | 840 | 2 | no
+WALLIS AND FUTUNA | CFP Franc | XPF | 953 | 0 | no
+WESTERN SAHARA | Moroccan Dirham | MAD | 504 | 2 | no
+YEMEN | Yemeni Rial | YER | 886 | 2 | no
+ZAMBIA | Zambian Kwacha | ZMW | 967 | 2 | no
+ZIMBABWE | Zimbabwe Gold | ZWG | 924 | 2 | no
+ZZ01_Bond Markets Unit European_EURCO | Bond Markets Unit European Composite Unit (EURCO) | XBA | 955 | N.A. | no
+ZZ02_Bond Markets Unit European_EMU-6 | Bond Markets Unit European Monetary Unit (E.M.U.-6) | XBB | 956 | N.A. | no
+ZZ03_Bond Markets Unit European_EUA-9 | Bond Markets Unit European Unit of Account 9 (E.U.A.-9) | XBC | 957 | N.A. | no
+ZZ04_Bond Markets Unit European_EUA-17 | Bond Markets Unit European Unit of Account 17 (E.U.A.-17) | XBD | 958 | N.A. | no
+ZZ06_Testing_Code | Codes specifically reserved for testing purposes | XTS | 963 | N.A. | no
+ZZ07_No_Currency | The codes assigned for transactions where no currency is involved | XXX | 999 | N.A. | no
+ZZ08_Gold | Gold | XAU | 959 | N.A. | no
+ZZ09_Palladium | Palladium | XPD | 964 | N.A. | no
+ZZ10_Platinum | Platinum | XPT | 962 | N.A. | no
+ZZ11_Silver | Silver | XAG | 961 | N.A. | no

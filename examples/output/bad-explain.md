@@ -1,0 +1,149 @@
+# payout-batch-check: examples/bad/batch.json
+
+- File: 240 lines, 6,625 bytes
+- Batch: PAYOUT-EXAMPLE-BAD; JSON; 22 payments \(17 bank, 4 stablecoin\); debit EUR; paid in EUR, GBP, CHF, EUX, JPY, SEK, USDC, DAI and 2 more
+- Findings: 23 \(16 error, 7 warning\)
+- Result: **FAIL - 16 findings at or above error \(16 error, 7 warning\)**
+
+## Findings
+
+| Level | Check | Where | Message |
+| --- | --- | --- | --- |
+| error | batch-total-mismatch | examples/bad/batch.json:6 | The batch has a payment of 2500 USD, but its totals give none for USD, so a bank that checks the totals of the batch refuses it. This is a best practice of this tool, not a rule in the pages it cites. Fix: Work out the totals again from the rows, and find the row that was added or lost before the batch is sent. |
+| error | batch-total-mismatch | examples/bad/batch.json:7 | The batch gives a total of 6082 EUR, but its 10 payments in EUR add up to 5982. A batch whose control total is off is refused by the bank, or a row was added or lost on the way. This is a best practice of this tool, not a rule in the pages it cites. Fix: Work out the totals again from the rows, and find the row that was added or lost before the batch is sent. |
+| error | iban-checksum | examples/bad/batch.json:35 | The iban of payment P-002, GR1601101250000000012300696, fails the check of ISO 13616: the remainder of MOD 97-10 is 28, not 1, so a character is wrong or two are swapped. A bank may return or reject the payment. Fix: Copy the IBAN again from the beneficiary, in electronic form or in groups of four; never correct the check digits by hand to make it pass. |
+| error | iban-length | examples/bad/batch.json:45 | The iban of payment P-003 has 17 characters, but the IBAN registry of Swift gives NL IBANs 18. Fix: Copy the IBAN again from the beneficiary; an IBAN of the right country always has the length of the registry. |
+| error | bic-format | examples/bad/batch.json:65 | The bic of payment P-005, "EXMP GB2L", has 9 characters, not 8 or 11. A BIC of ISO 9362 is four letters or digits, two letters of a country, two letters or digits, and an optional branch code of three. Fix: Copy the BIC again from the bank of the beneficiary, in capitals and with no spaces. |
+| error | currency-unknown | examples/bad/batch.json:88 | The currency of payment P-007 is "EUX", which is not an alphabetic code of the ISO 4217 list SIX keeps. A bank refuses a payment in a currency it does not know. Fix: Write the three capital letters of the currency as list one of ISO 4217 gives them, such as EUR, USD or JPY. |
+| error | amount-decimals | examples/bad/batch.json:99 | The amount of payment P-008 is 150000.50 JPY, with 1 decimal place, but the ISO 4217 list gives JPY a minor unit of 0: it has no fractions. A bank refuses the amount or rounds it. Fix: Round the amount to the minor unit of the currency before the batch is sent, and make sure the rounding is the one the beneficiary is owed. |
+| error | amount-invalid | examples/bad/batch.json:110 | The amount of payment P-009 is negative \(-200.00\); a payout pays out, and a reversal or a fee belongs in a file of its own. This is a best practice of this tool, not a rule in the pages it cites. Fix: Write the amount as a plain decimal number above 0, such as 1500.00, and move reversals and fees to a file of their own. |
+| error | country-invalid | examples/bad/batch.json:116 | The beneficiaryCountry of payment P-010 is "UK", which is not a two-letter code of the country table the tool reads \(the ISO alpha-2 codes of the UN M49 table\). The code of the United Kingdom is GB. Fix: Write the two capital letters of the country, such as GB for the United Kingdom. |
+| error | payment-id-duplicate | examples/bad/batch.json:124 | The paymentId P-001 is also the id of the payment at line 19; a bank or a payout provider refuses the second, or pays both when it takes the id for a new instruction. This is a best practice of this tool, not a rule in the pages it cites. Fix: Give every payment an id of its own and keep it the same when the batch is sent again, so that a provider can refuse a payment it has already made. |
+| error | beneficiary-name-missing | examples/bad/batch.json:143 | Payment P-013 has no beneficiaryName, so the payment cannot be screened against sanctions lists and the bank of the beneficiary cannot match it to the account holder. This is a best practice of this tool, not a rule in the pages it cites. Fix: Give the full name of the beneficiary as the bank or the wallet provider knows it. |
+| error | wallet-address-malformed | examples/bad/batch.json:177 | The walletAddress of payment P-016 on Ethereum, "0x1234", has 4 characters after 0x, not 40; an address on Ethereum is 0x followed by 40 hex digits, not the zero address. A payment to it fails, or goes to an address no one holds. Fix: Copy the wallet address again from the beneficiary, and confirm it with a small test payment before a large one. |
+| error | token-not-allowed | examples/bad/batch.json:186 | Payment P-017 pays in DAI, which is not in the list of tokens the batch may pay in \(USDC and USDT; --tokens sets another\). This is a best practice of this tool, not a rule in the pages it cites. Fix: Pay in a token of the list, or give the tokens your team pays in with --tokens. |
+| error | secret-in-batch | examples/bad/batch.json:209 | The batch holds the key "seedPhrase", which names a seed, a mnemonic or a private key. The tool never reads one, and the value is not shown. Fix: Remove the value from the file and from wherever the file was copied, treat it as exposed and move the funds it controls. A payout batch names wallets by their public address only. |
+| error | field-invalid | examples/bad/batch.json:226 | The rail of payment P-021 is "wire"; it must be bank or stablecoin. Fix: Write the value as docs/inputs.md shows: text for names, codes, accounts and addresses, decimal numbers for amounts and rates. |
+| error | field-missing | examples/bad/batch.json:231 | Payment P-022 is a bank payment with no currency. Fix: Add the field named; docs/inputs.md lists what each payment needs. |
+| warning | iban-country-mismatch | examples/bad/batch.json:55 | The iban of payment P-004 is an account in BE, but the beneficiaryCountry is AT. Either can be right, as a beneficiary may bank abroad, but a wrong country is also how a payment reaches the wrong account. This is a best practice of this tool, not a rule in the pages it cites. Fix: Check the beneficiary country and the IBAN with the beneficiary; when the account is abroad on purpose, keep the warning and say so in the review. |
+| warning | bic-country-mismatch | examples/bad/batch.json:76 | The bic of payment P-006, EXMPDEFF, is of a bank in DE, but the beneficiaryCountry is CH and the iban is in CH. This is a best practice of this tool, not a rule in the pages it cites. Fix: Check the BIC with the beneficiary; when the bank is abroad on purpose, keep the warning and say so in the review. |
+| warning | payment-possible-duplicate | examples/bad/batch.json:141 | Payment P-012 pays 1500 EUR to the same account as payment P-001 at line 19, for the same amount. It may be one payment written twice. This is a best practice of this tool, not a rule in the pages it cites. Fix: Check that the two payments are meant; remove one when the same payment was written twice. |
+| warning | beneficiary-name-short | examples/bad/batch.json:153 | The beneficiaryName of payment P-014 is "Q", with fewer than 3 letters, too short to screen against sanctions lists or to match to the account holder. This is a best practice of this tool, not a rule in the pages it cites. Fix: Write the full name of the beneficiary, not initials or a placeholder. |
+| warning | fx-rate-missing | examples/bad/batch.json:167 | Payment P-015 is paid in USD from EUR, the debitCurrency of the batch, and gives no fxRate, so the amount debited is not known until the bank converts it. This is a best practice of this tool, not a rule in the pages it cites. Fix: Give the rate the batch was priced at in fxRate, so that the amount debited is known before the batch is sent. |
+| warning | network-token-unknown | examples/bad/batch.json:196 | Payment P-018 pays in USDT on Base, a pair the tool's table does not list, so the token may be a bridged copy or not exist on the network. Check the token contract of the issuer by hand. This is a best practice of this tool, not a rule in the pages it cites. Fix: Check by hand that the issuer of the token lists a contract on the network, and how a wallet address on it is written. |
+| warning | field-unknown | examples/bad/batch.json:220 | The key "purposeCod" of payment P-020 is not one the tool reads, so its value was left out of every check. Did you mean "purposeCode"? The keys of payment P-020 are paymentId, beneficiaryName, beneficiaryCountry, rail, iban, accountNumber, bic, currency, amount, network, token, walletAddress, purposeCode, fxRate, sourceCurrency, notes. Fix: Correct the spelling to a field of docs/inputs.md, or remove it. |
+
+## Basis
+
+### batch-total-mismatch
+
+- The tool's own choice: comparing the totals of a batch with its rows is a best practice of this tool, not a rule in the pages it cites; a control total is how many banks and providers catch a changed file, and no cited page sets the rule
+
+### iban-checksum
+
+- To check the two check digits, the communique moves the first four characters to the end, turns every letter into a number from 10 for A to 35 for Z, and asks that the result divided by 97 leave 1, the MOD 97-10 of ISO 7064. (Central Bank of the Republic of Turkiye: Communique on the International Bank Account Number, <https://tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Bottom+Menu/IBAN/Communique>)
+- The communique lets a bank return or reject a transfer order whose IBAN fails that check. (Central Bank of the Republic of Turkiye: Communique on the International Bank Account Number, <https://tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Bottom+Menu/IBAN/Communique>)
+
+### iban-length
+
+- ISO named Swift the registration authority for the national formats of the IBAN, and the registry Swift publishes holds the format of each country whose IBAN follows ISO 13616. (Swift: International Bank Account Number \(IBAN\), <https://www.swift.com/standards/data-standards/iban-international-bank-account-number>)
+- For every country it covers, the registry gives the two letters an IBAN starts with, its structure, its length in electronic form and an example; an IBAN of Norway has 15 characters and one of Saint Lucia 32. (Swift: IBAN Registry \(TXT\), <https://www.swift.com/swift-resource/11971/download>)
+
+### bic-format
+
+- ISO 9362 defines the BIC as eight characters, four letters or digits for the party, two letters for a country code of ISO 3166-1 and two letters or digits after them, with a branch code of three more characters that may be added. (Swift: Business Identifier Code \(BIC\), <https://www.swift.com/standards/data-standards/bic-business-identifier-code>)
+
+### currency-unknown
+
+- List one of ISO 4217, kept by SIX as the maintenance agency, names for each country or entity its currency with an alphabetic code of three letters, a numeric code and a minor unit. (SIX: ISO 4217 list one, current currency and funds code list, <https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml>)
+
+### amount-decimals
+
+- The minor unit of the list is the number of decimal places a currency is counted in: 0 for the Japanese yen, 2 for the euro, 3 for the Kuwaiti dinar, and N.A. for codes such as gold that have no fraction. (SIX: ISO 4217 list one, current currency and funds code list, <https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml>)
+
+### amount-invalid
+
+- The tool's own choice: refusing an amount of 0, a negative amount and an amount in another notation is a best practice of this tool, not a rule in the pages it cites; none of the cited pages sets a rule on how a batch writes an amount
+
+### country-invalid
+
+- The M49 table of the UN Statistics Division gives each country or area it lists a number of three digits and its ISO codes of two and of three letters. (United Nations Statistics Division: Standard country or area codes for statistical use \(M49\), <https://unstats.un.org/unsd/methodology/m49/overview/>)
+
+### payment-id-duplicate
+
+- The tool's own choice: asking for an id of its own for each payment is a best practice of this tool, not a rule in the pages it cites; providers use the id to find a payment and to refuse one sent twice, and no cited page sets the rule
+
+### beneficiary-name-missing
+
+- The tool's own choice: asking for a name on every payment is a best practice of this tool, not a rule in the pages it cites; the name is what sanctions screening and the bank of the beneficiary read, and the cited pages are about codes and accounts
+
+### wallet-address-malformed
+
+- An Ethereum address is made from the last 20 bytes of a Keccak-256 hash of the public key with 0x in front, 42 characters with 40 hex digits, and a contract account has an address of the same form. (ethereum.org: Ethereum accounts, <https://ethereum.org/en/developers/docs/accounts/>)
+- Every Solana account has an address of 32 bytes, either an Ed25519 public key or one derived from a program, and it is written as a base58 string. (Solana: Account Structure, <https://solana.com/docs/core/accounts/account-structure>)
+- A TRON address is 21 bytes that begin with the byte 0x41, and wallets and explorers show it in Base58Check as 34 characters starting with T. (TRON Developer Hub: Accounts and keys, <https://developers.tron.network/docs/account>)
+
+### token-not-allowed
+
+- The tool's own choice: a list of tokens a batch may pay in is a best practice of this tool, not a rule in the pages it cites; the default list is the tool's own and --tokens sets yours
+
+### secret-in-batch
+
+- A problem with the batch file itself; it rests on no page.
+
+### field-invalid
+
+- A problem with the batch file itself; it rests on no page.
+
+### field-missing
+
+- A problem with the batch file itself; it rests on no page.
+
+### iban-country-mismatch
+
+- Some prefixes of the registry stand for other territories as well: Aland banks under FI, the Isle of Man, Jersey and Guernsey under GB, and the French overseas departments and territories under FR. (Swift: IBAN Registry \(TXT\), <https://www.swift.com/swift-resource/11971/download>)
+- The tool's own choice: comparing the country of the IBAN with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; a beneficiary may hold an account abroad, and the registry only says which territories a prefix covers
+
+### bic-country-mismatch
+
+- ISO 9362 defines the BIC as eight characters, four letters or digits for the party, two letters for a country code of ISO 3166-1 and two letters or digits after them, with a branch code of three more characters that may be added. (Swift: Business Identifier Code \(BIC\), <https://www.swift.com/standards/data-standards/bic-business-identifier-code>)
+- The tool's own choice: comparing the country of the BIC with the beneficiary country is a best practice of this tool, not a rule in the pages it cites; the BIC page gives the place of the country code, not a rule that the bank and the beneficiary share a country
+
+### payment-possible-duplicate
+
+- The tool's own choice: looking for two payments of one amount to one account is a best practice of this tool, not a rule in the pages it cites; two such payments can be right, such as two invoices of the same amount
+
+### beneficiary-name-short
+
+- The tool's own choice: the least length of a name is a best practice of this tool, not a rule in the pages it cites; three letters is the tool's own floor, and a real name can be that short
+
+### fx-rate-missing
+
+- The tool's own choice: asking for the rate of a converted payment is a best practice of this tool, not a rule in the pages it cites; a bank can convert at its own rate, and the batch then debits an amount no one checked
+
+### network-token-unknown
+
+- The tool's own choice: the table of networks and of the tokens on each is a best practice of this tool, not a rule in the pages it cites; no cited page gives one, and a pair out of it is a question, not an error
+
+### field-unknown
+
+- A problem with the batch file itself; it rests on no page.
+
+## Totals (10)
+
+| Unit | Payments | Sum of rows | Total given | State |
+| --- | ---: | ---: | ---: | --- |
+| EUR | 10 | 5982 | 6082 | differs |
+| GBP | 1 | 1200 | 1200 | matches |
+| CHF | 1 | 950 | 950 | matches |
+| EUX | 1 | 410 | 410 | matches |
+| JPY | 1 | 150000.5 | 150000.5 | matches |
+| SEK | 1 | 0 | 200 | 1 not read |
+| USDC | 2 | 1250 | 1250 | matches |
+| DAI | 1 | 300 | 300 | matches |
+| USDT | 1 | 400 | 400 | matches |
+| USD | 1 | 2500 | - | no total given |
+
+Note: the total for SEK was not compared, because the amount of one of its payments could not be read
+
+This report is an input to a review before the batch is sent: not a compliance or sanctions screening and not a guarantee that a payment will arrive.
